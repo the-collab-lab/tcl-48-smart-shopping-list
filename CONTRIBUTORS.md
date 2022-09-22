@@ -8,6 +8,8 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
     - [Nuriya Developer](https://github.com/NuriyaAkh) 😃
 
+    - [Meera Ramesh](https://github.com/meera-ramesh19)
+
 ## Mentors
 
 ## Code of Conduct Contacts
