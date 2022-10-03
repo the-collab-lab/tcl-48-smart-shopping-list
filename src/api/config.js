@@ -5,7 +5,6 @@ import { getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCle0YCfdl7oQgSA902p_AT3tGbr_bivAg',
 	authDomain: 'tcl-48-smart-shopping-list.firebaseapp.com',
-	databaseURL: 'https://tcl-48-smart-shopping-list.firebaseio.com/',
 	projectId: 'tcl-48-smart-shopping-list',
 	storageBucket: 'tcl-48-smart-shopping-list.appspot.com',
 	messagingSenderId: '755383222168',
