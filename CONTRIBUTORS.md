@@ -11,7 +11,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Meera Ramesh](https://github.com/meera-ramesh19) 😀
 
 - [Kaitlin Lewis](https://github.com/kaitlinLewis) 🎉
-    
 - [Patrick Snowden](https://github.com/snowsneakers) 💀
 
 ## Mentors
