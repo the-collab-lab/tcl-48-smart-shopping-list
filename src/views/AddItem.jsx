@@ -58,7 +58,7 @@ export function AddItem({ listToken }) {
 							name="daysUntilNextPurchase"
 							id="soon"
 							onChange={handleChange}
-							checked
+							defaultChecked
 						/>
 						<label htmlFor="kind-of-soon">Kind of soon</label>
 						<input
