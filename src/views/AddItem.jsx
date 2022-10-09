@@ -4,7 +4,7 @@ import { addItem } from '../api/firebase';
 export function AddItem({ listToken }) {
 	const [formData, setFormData] = useState({
 		itemName: '',
-		daysUntilNextPurchase: 0,
+		daysUntilNextPurchase: 7,
 	});
 
 	const [message, setMessage] = useState('');
@@ -58,6 +58,7 @@ export function AddItem({ listToken }) {
 							name="daysUntilNextPurchase"
 							id="soon"
 							onChange={handleChange}
+							checked
 						/>
 						<label htmlFor="kind-of-soon">Kind of soon</label>
 						<input
