@@ -38,44 +38,50 @@ export function AddItem({ listToken }) {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label htmlFor="itemName">Item Name:</label>
-					<input
-						type="text"
-						name="itemName"
-						id="itemName"
-						placeholder="item name"
-						value={itemName}
-						onChange={handleChange}
-						required
-					/>
 				</div>
+				<input
+					type="text"
+					name="itemName"
+					id="itemName"
+					placeholder="item name"
+					value={itemName}
+					onChange={handleChange}
+					required
+				/>
 				<div>
 					<fieldset>
 						<legend>How soon will you buy this again?</legend>
-						<label htmlFor="soon">Soon</label>
-						<input
-							type="radio"
-							value={7}
-							name="daysUntilNextPurchase"
-							id="soon"
-							onChange={handleChange}
-							defaultChecked
-						/>
-						<label htmlFor="kind-of-soon">Kind of soon</label>
-						<input
-							type="radio"
-							value={14}
-							name="daysUntilNextPurchase"
-							id="kind-of-soon"
-							onChange={handleChange}
-						/>
-						<label htmlFor="not-soon">Not soon</label>
-						<input
-							type="radio"
-							value={30}
-							name="daysUntilNextPurchase"
-							id="not-soon"
-							onChange={handleChange}
-						/>
+						<div>
+							<input
+								type="radio"
+								value={7}
+								name="daysUntilNextPurchase"
+								id="soon"
+								onChange={handleChange}
+								defaultChecked
+							/>
+							<label htmlFor="soon">Soon</label>
+						</div>
+						<div>
+							<input
+								type="radio"
+								value={14}
+								name="daysUntilNextPurchase"
+								id="kind-of-soon"
+								onChange={handleChange}
+							/>
+							<label htmlFor="not-soon">Not soon</label>
+						</div>
+						<div>
+							<input
+								type="radio"
+								value={30}
+								name="daysUntilNextPurchase"
+								id="not-soon"
+								onChange={handleChange}
+							/>
+							<label htmlFor="kind-of-soon">Kind of soon</label>
+						</div>
 					</fieldset>
 					<p>{message}</p>
 				</div>
