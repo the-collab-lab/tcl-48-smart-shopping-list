@@ -17,7 +17,6 @@ export function AddItem({ listToken }) {
 			await addItem(listToken, { itemName, daysUntilNextPurchase });
 			setFormData({
 				itemName: '',
-				daysUntilNextPurchase: 0,
 			});
 			setMessage('Item added');
 		} catch (error) {
