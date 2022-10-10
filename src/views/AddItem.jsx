@@ -15,9 +15,10 @@ export function AddItem({ listToken }) {
 		e.preventDefault();
 		try {
 			await addItem(listToken, { itemName, daysUntilNextPurchase });
-			setFormData({
+			setFormData((prevState) => ({
+				...prevState,
 				itemName: '',
-			});
+			}));
 			setMessage('Item added');
 		} catch (error) {
 			console.log(error);
