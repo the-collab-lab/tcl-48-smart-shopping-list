@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-	useNavigate,
-	BrowserRouter as Router,
-	Routes,
-	Route,
-} from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
@@ -61,17 +56,17 @@ export function App() {
 			/** Finally, we update our React state. */
 			setData(nextData);
 		});
-	}, [listToken, navigate]);
+	}, [listToken]);
 
 	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Home handleClick={handleClick} />} />
-					<Route path="/list" element={<List data={data} />} />
-					<Route path="/add-item" element={<AddItem />} />
-				</Route>
-			</Routes>
-		</Router>
+		//<Router>
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route index element={<Home handleClick={handleClick} />} />
+				<Route path="/list" element={<List data={data} />} />
+				<Route path="/add-item" element={<AddItem />} />
+			</Route>
+		</Routes>
+		//</Router>
 	);
 }
