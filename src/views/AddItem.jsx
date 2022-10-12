@@ -67,20 +67,20 @@ export function AddItem({ listToken }) {
 								type="radio"
 								value={14}
 								name="daysUntilNextPurchase"
-								id="not-soon"
+								id="kind-of-soon"
 								onChange={handleChange}
 							/>
-							<label htmlFor="not-soon">Not soon</label>
+							<label htmlFor="kind-of-soon">Kind of soon</label>
 						</div>
 						<div>
 							<input
 								type="radio"
 								value={30}
 								name="daysUntilNextPurchase"
-								id="kind-of-soon"
+								id="not-soon"
 								onChange={handleChange}
 							/>
-							<label htmlFor="kind-of-soon">Kind of soon</label>
+							<label htmlFor="not-soon">Not soon</label>
 						</div>
 					</fieldset>
 					<p>{message}</p>
