@@ -19,7 +19,7 @@ export function AddItem({ listToken }) {
 				...prevState,
 				itemName: '',
 			}));
-			setMessage('Item added');
+			setMessage(itemName + ' added to the list');
 		} catch (error) {
 			console.log(error);
 			setMessage('Item not added');
