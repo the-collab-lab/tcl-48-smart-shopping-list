@@ -19,7 +19,10 @@ export function AddItem({ listToken }) {
 				...prevState,
 				itemName: '',
 			}));
-			setMessage(itemName + ' added to the list');
+			setMessage(`${itemName} added to the list`);
+			setTimeout(() => {
+				setMessage('');
+			}, 2000);
 		} catch (error) {
 			console.log(error);
 			setMessage('Item not added');
@@ -27,6 +30,7 @@ export function AddItem({ listToken }) {
 	};
 
 	const handleChange = (e) => {
+		if (message) setMessage('');
 		setFormData((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
