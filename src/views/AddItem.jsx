@@ -15,17 +15,18 @@ export function AddItem({ listToken }) {
 		e.preventDefault();
 		try {
 			await addItem(listToken, { itemName, daysUntilNextPurchase });
-			setFormData((prevState) => ({
-				...prevState,
-				itemName: '',
-			}));
 			setMessage(`${itemName} added to the list`);
-			setTimeout(() => {
-				setMessage('');
-			}, 2000);
 		} catch (error) {
 			console.log(error);
 			setMessage('Item not added');
+		} finally {
+			setTimeout(() => {
+				setFormData((prevState) => ({
+					...prevState,
+					itemName: '',
+				}));
+				setMessage('');
+			}, 2000);
 		}
 	};
 
@@ -58,7 +59,7 @@ export function AddItem({ listToken }) {
 						<div>
 							<input
 								type="radio"
-								value={7}
+								value={7 || daysUntilNextPurchase}
 								name="daysUntilNextPurchase"
 								id="soon"
 								onChange={handleChange}
@@ -69,7 +70,7 @@ export function AddItem({ listToken }) {
 						<div>
 							<input
 								type="radio"
-								value={14}
+								value={14 || daysUntilNextPurchase}
 								name="daysUntilNextPurchase"
 								id="kind-of-soon"
 								onChange={handleChange}
@@ -79,7 +80,7 @@ export function AddItem({ listToken }) {
 						<div>
 							<input
 								type="radio"
-								value={30}
+								value={30 || daysUntilNextPurchase}
 								name="daysUntilNextPurchase"
 								id="not-soon"
 								onChange={handleChange}
