@@ -59,6 +59,7 @@ export function App() {
 	}, [listToken]);
 
 	return (
+
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home handleClick={handleClick} />} />
