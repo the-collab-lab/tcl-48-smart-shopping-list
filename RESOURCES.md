@@ -7,10 +7,11 @@
 
 | 🗓 Week | 📼 Recording                                | 📓 Learning Module Slides                                                                                                  | 📚 Additional Resources     | 🚧 Retro Board |
 | ------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------- |
-| 0      | [Week 0 Sync](https://youtu.be/Fu28FWI9r2Q) | [Git slides](https://docs.google.com/presentation/d/1hNkBhc3QaN3vmIi9mnKceo89H7u8TZOFOsvooIaAuN0/edit?usp=sharing)         | [Week 0 resources](#week-0) | -              |
-| 1      | [Week 1 Sync](https://youtu.be/02u5kgVr4Yg) | [Code review slides](https://docs.google.com/presentation/d/1UPAiMB5koIqV9TTENSjUJcSfvjJTnWqxGRA7sf34viY/edit?usp=sharing) | [Week 1 resources](#week-1) | -              |
+| 0      | [Week 0 Sync](https://youtu.be/Fu28FWI9r2Q) | [Git slides](https://docs.google.com/presentation/d/1hNkBhc3QaN3vmIi9mnKceo89H7u8TZOFOsvooIaAuN0/edit?usp=sharing)         | [Week 0 resources](#week-0-resources) | -              |
+| 1      | [Week 1 Sync](https://youtu.be/02u5kgVr4Yg) | [Code review slides](https://docs.google.com/presentation/d/1UPAiMB5koIqV9TTENSjUJcSfvjJTnWqxGRA7sf34viY/edit?usp=sharing) | [Week 1 resources](#week-1-resources) | -              |
+| 2 | [Week 2 Sync](https://youtu.be/isgmn-4Q4c0) | - | - | [Week 2 Retro](https://github.com/orgs/the-collab-lab/projects/30) | 
 
-### <div id="week-0" />Week 0 Resources
+### Week 0 Resources
 
 - [git documentation](https://git-scm.com/doc)
 - [Atlassian git tutorials](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
@@ -20,7 +21,7 @@
   - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - [Live Share](https://code.visualstudio.com/learn/collaboration/live-share)
 
-### <div id="week-1"/>Week 1 Resources
+### Week 1 Resources
 
 - Code review articles
   - [What is a Code Review & How It Can Save Time](https://www.atlassian.com/agile/software-development/code-reviews)
