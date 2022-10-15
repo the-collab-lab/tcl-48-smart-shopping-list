@@ -61,7 +61,12 @@ export function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
-				<Route index element={<Home handleClick={handleClick} />} />
+				<Route
+					index
+					element={
+						<Home setListToken={setListToken} handleClick={handleClick} />
+					}
+				/>
 				<Route path="/list" element={<List data={data} />} />
 				<Route path="/add-item" element={<AddItem listToken={listToken} />} />
 			</Route>
