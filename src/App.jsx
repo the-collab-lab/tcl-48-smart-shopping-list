@@ -59,7 +59,6 @@ export function App() {
 	}, [listToken]);
 
 	return (
-		//<Router>
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home handleClick={handleClick} />} />
@@ -67,6 +66,5 @@ export function App() {
 				<Route path="/add-item" element={<AddItem />} />
 			</Route>
 		</Routes>
-		//</Router>
 	);
 }
