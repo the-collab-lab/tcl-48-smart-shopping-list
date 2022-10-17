@@ -38,7 +38,7 @@ export function Home({ handleClick, setListToken }) {
 						placeholder="Three word token"
 						value={jointListToken}
 						onChange={handleJointListTokenChange}
-					></input>
+					/>
 				</label>
 				<p>{messageError}</p>
 				<button type="submit">Join an existing list</button>
