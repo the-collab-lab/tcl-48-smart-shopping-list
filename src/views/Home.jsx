@@ -1,17 +1,16 @@
 import './Home.css';
 import { useState } from 'react';
 import { matchToken } from '../api/firebase';
-import { onSnapshot } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-export function Home(props, { setListToken }) {
+export function Home({ handleClick, setListToken }) {
 	const [jointListToken, setJointListToken] = useState('');
 	const [messageError, setMessageError] = useState('');
 	const navigate = useNavigate();
 
 	const handleTokenSubmit = async (e) => {
 		e.preventDefault();
-		console.log('handle tokens submit');
+
 		const tokenQuery = await matchToken(jointListToken);
 		if (!tokenQuery.empty) {
 			setListToken(jointListToken);
@@ -25,7 +24,7 @@ export function Home(props, { setListToken }) {
 	};
 	return (
 		<div className="Home">
-			<button type="button" onClick={props.handleClick}>
+			<button type="button" onClick={handleClick}>
 				Create list
 			</button>
 			<p>- or -</p>
