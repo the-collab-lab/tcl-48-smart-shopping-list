@@ -38,6 +38,7 @@ export function Home({ handleClick, setListToken }) {
 						placeholder="Three word token"
 						value={jointListToken}
 						onChange={handleJointListTokenChange}
+						required
 					/>
 				</label>
 				<p>{messageError}</p>
