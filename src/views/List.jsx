@@ -11,7 +11,6 @@ export function List({ data }) {
 
 	return (
 		<>
-			{/* <div> */}
 			<form className="filterForm">
 				<label htmlFor="searchItems">Filter Items</label>
 				<input
@@ -25,7 +24,7 @@ export function List({ data }) {
 				/>
 				{searchQuery && <button onClick={clearInput}>Clear</button>}
 			</form>
-			{/* </div> */}
+
 			<ul>
 				{data
 					.filter((item) =>
