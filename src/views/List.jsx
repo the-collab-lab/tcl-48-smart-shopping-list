@@ -1,15 +1,38 @@
 import { ListItem } from '../components';
+import { useState } from 'react';
 
 export function List({ data }) {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const clearInput = (e) => {
+		e.preventDefault();
+		setSearchQuery('');
+	};
+
 	return (
 		<>
-			<p>
-				Hello from the <code>/list</code> page!
-			</p>
+			<form className="filterForm">
+				<label htmlFor="searchItems">Filter Items</label>
+				<input
+					type="text"
+					id="searchItems"
+					name="searchItems"
+					value={searchQuery}
+					placeholder="Start typing here"
+					autoComplete="off"
+					onChange={(e) => setSearchQuery(e.target.value)}
+				/>
+				{searchQuery && <button onClick={clearInput}>Clear</button>}
+			</form>
+
 			<ul>
-				{data.map((item) => {
-					return <ListItem key={item.id} name={item.name} />;
-				})}
+				{data
+					.filter((item) =>
+						item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+					)
+					.map((item) => {
+						return <ListItem key={item.id} name={item.name} />;
+					})}
 			</ul>
 		</>
 	);
