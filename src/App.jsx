@@ -11,6 +11,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 export function App() {
 	const [data, setData] = useState([]);
 	const navigate = useNavigate();
+
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -61,7 +62,12 @@ export function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
-				<Route index element={<Home handleClick={handleClick} />} />
+				<Route
+					index
+					element={
+						<Home setListToken={setListToken} handleClick={handleClick} />
+					}
+				/>
 				<Route path="/list" element={<List data={data} />} />
 				<Route path="/add-item" element={<AddItem listToken={listToken} />} />
 			</Route>
