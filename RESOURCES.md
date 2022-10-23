@@ -5,13 +5,14 @@
 
 ## Weekly Sync Roundup
 
-| 🗓 Week | 📼 Recording                                | 📓 Learning Module Slides                                                                                                  | 📚 Additional Resources     | 🚧 Retro Board |
-| ------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | -------------- |
-| 0      | [Week 0 Sync](https://youtu.be/Fu28FWI9r2Q) | [Git slides](https://docs.google.com/presentation/d/1hNkBhc3QaN3vmIi9mnKceo89H7u8TZOFOsvooIaAuN0/edit?usp=sharing)         | [Week 0 resources](#week-0-resources) | -              |
-| 1      | [Week 1 Sync](https://youtu.be/02u5kgVr4Yg) | [Code review slides](https://docs.google.com/presentation/d/1UPAiMB5koIqV9TTENSjUJcSfvjJTnWqxGRA7sf34viY/edit?usp=sharing) | [Week 1 resources](#week-1-resources) | -              |
-| 2 | [Week 2 Sync](https://youtu.be/isgmn-4Q4c0) | - | - | [Week 2 Retro](https://github.com/orgs/the-collab-lab/projects/30) | 
+| 🗓 Week | 📼 Recording                                               | 📓 Learning Module Slides                                                                                                  | 📚 Additional Resources                                   | 🚧 Retro Board                                                     |
+| ------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------ |
+| 0      | [Week 0 Sync](https://youtu.be/Fu28FWI9r2Q)                | [Git slides](https://docs.google.com/presentation/d/1hNkBhc3QaN3vmIi9mnKceo89H7u8TZOFOsvooIaAuN0/edit?usp=sharing)         | [Git Resources](#git-resources)                           | -                                                                  |
+| 1      | [Week 1 Sync](https://youtu.be/02u5kgVr4Yg)                | [Code review slides](https://docs.google.com/presentation/d/1UPAiMB5koIqV9TTENSjUJcSfvjJTnWqxGRA7sf34viY/edit?usp=sharing) | [Code Review Resources](#code-review-resources)           | -                                                                  |
+| 2      | [Week 2 Sync](https://www.youtube.com/watch?v=iljRuBlMUOs) | -                                                                                                                          | -                                                         | [Week 2 Retro](https://github.com/orgs/the-collab-lab/projects/30) |
+| 3      | [Week 3 Sync](https://www.youtube.com/watch?v=00kgnKlqJsM) |                                                                                                                            | [Pair Programming Resources](#pair-programming-resources) | -                                                                  |
 
-### Week 0 Resources
+### Git Resources
 
 - [git documentation](https://git-scm.com/doc)
 - [Atlassian git tutorials](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
@@ -21,7 +22,7 @@
   - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - [Live Share](https://code.visualstudio.com/learn/collaboration/live-share)
 
-### Week 1 Resources
+### Code Review Resources
 
 - Code review articles
   - [What is a Code Review & How It Can Save Time](https://www.atlassian.com/agile/software-development/code-reviews)
@@ -34,3 +35,12 @@
   - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
   - [Conventional Comments](https://conventionalcomments.org/)
   - [GIFs for GitHub Chrome Extension](https://chrome.google.com/webstore/detail/gifs-for-github/dkgjnpbipbdaoaadbdhpiokaemhlphep?hl=en)
+
+### Pair Programming Resources
+
+- [10 Collaborative Coding Tools for Remote Pair Programming](https://www.ma-no.org/en/software/development/10-collaborative-coding-tools-for-remote-pair-programming)
+- [Promiscuous Pairing and Beginner’s Mind](http://csis.pace.edu/~grossman/dcs/XR4-PromiscuousPairing.pdf)
+- [About Pair Programming](https://dev.to/flippedcoding/about-pair-programming-1m07)
+- [How to do Pair Programming the Wrong Way](https://hackernoon.com/how-to-do-pair-programming-wrong-dab72fd15bef)
+- [The Power of Pair Programming Lies in the Execution](https://medium.com/free-code-camp/the-power-of-pair-programming-lies-on-the-execution-a27938447994)
+- [Pair Programming Explained](https://shopify.engineering/pair-programming-explained)
