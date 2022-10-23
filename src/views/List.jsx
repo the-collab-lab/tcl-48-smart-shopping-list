@@ -31,7 +31,13 @@ export function List({ data }) {
 						item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 					)
 					.map((item) => {
-						return <ListItem key={item.id} name={item.name} />;
+						return (
+							<ListItem
+								key={item.id}
+								name={item.name}
+								isChecked={item.isChecked}
+							/>
+						);
 					})}
 			</ul>
 		</>
