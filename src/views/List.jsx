@@ -1,7 +1,7 @@
 import { ListItem } from '../components';
 import { useState } from 'react';
 
-export function List({ data }) {
+export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const clearInput = (e) => {
@@ -34,8 +34,12 @@ export function List({ data }) {
 						return (
 							<ListItem
 								key={item.id}
+								listToken={listToken}
+								itemId={item.id}
 								name={item.name}
 								isChecked={item.isChecked}
+								dateLastPurchased={item.dateLastPurchased}
+								totalPurchases={item.totalPurchases}
 							/>
 						);
 					})}
