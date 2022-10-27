@@ -31,17 +31,7 @@ export function List({ data, listToken }) {
 						item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 					)
 					.map((item) => {
-						return (
-							<ListItem
-								key={item.id}
-								listToken={listToken}
-								itemId={item.id}
-								name={item.name}
-								isChecked={item.isChecked}
-								dateLastPurchased={item.dateLastPurchased}
-								totalPurchases={item.totalPurchases}
-							/>
-						);
+						return <ListItem key={item.id} listToken={listToken} item={item} />;
 					})}
 			</ul>
 		</>
