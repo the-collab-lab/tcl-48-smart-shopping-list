@@ -13,7 +13,7 @@ export function List({ data }) {
 	return (
 		<>
 			{data.length > 0 ? (
-				<ul>
+				<>
 					<form className="filterForm">
 						<label htmlFor="searchItems">Filter Items</label>
 						<input
@@ -27,14 +27,16 @@ export function List({ data }) {
 						/>
 						{searchQuery && <button onClick={clearInput}>Clear</button>}
 					</form>
-					{data
-						.filter((item) =>
-							item.name.toLowerCase().includes(searchQuery.toLowerCase()),
-						)
-						.map((item) => {
-							return <ListItem key={item.id} name={item.name} />;
-						})}
-				</ul>
+					<ul>
+						{data
+							.filter((item) =>
+								item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+							)
+							.map((item) => {
+								return <ListItem key={item.id} name={item.name} />;
+							})}
+					</ul>
+				</>
 			) : (
 				<div>
 					<p>Your shopping list is currently empty.</p>
