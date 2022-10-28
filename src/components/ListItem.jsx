@@ -6,7 +6,7 @@ const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
 export function ListItem({ listToken, item }) {
-	let { itemId, name, isChecked, dateLastPurchased, totalPurchases } = item;
+	let { id, name, isChecked, dateLastPurchased, totalPurchases } = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
@@ -22,19 +22,18 @@ export function ListItem({ listToken, item }) {
 			const items = {
 				isChecked: false,
 			};
-			updateItem(listToken, itemId, items);
+			updateItem(listToken, id, items);
 			setIsPurchased(false);
 		}
-	}, [listToken, timeElasped, itemId]);
+	}, [listToken, timeElasped, id]);
 
-	const handleCheckboxChange = () => {
+	const handleCheckboxChange = (e) => {
 		if (isPurchased) {
 			const items = {
 				isChecked: false,
 			};
-
-			updateItem(listToken, itemId, items);
 			setIsPurchased(false);
+			updateItem(listToken, id, items);
 		} else {
 			const count = totalPurchases + 1;
 			const items = {
@@ -43,18 +42,18 @@ export function ListItem({ listToken, item }) {
 				totalPurchases: count,
 			};
 
-			updateItem(listToken, itemId, items);
+			updateItem(listToken, id, items);
 			setIsPurchased(true);
 		}
 	};
 
 	return (
-		<li className="ListItem" key={itemId}>
-			<label htmlFor={itemId}>
+		<li className="ListItem" key={id}>
+			<label htmlFor="listeItem">
 				<input
 					type="checkbox"
-					id={itemId}
-					name={itemId}
+					id="id"
+					name="id"
 					checked={isPurchased}
 					onChange={handleCheckboxChange}
 				/>
