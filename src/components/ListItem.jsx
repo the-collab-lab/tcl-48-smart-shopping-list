@@ -49,7 +49,7 @@ export function ListItem({ listToken, item }) {
 
 	return (
 		<li className="ListItem" key={id}>
-			<label htmlFor="listeItem">
+			<label>
 				<input
 					type="checkbox"
 					id="id"
