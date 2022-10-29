@@ -5,8 +5,8 @@ import { updateItem } from '../api/firebase';
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item }) {
-	let { id, name, isChecked, dateLastPurchased, totalPurchases } = item;
+export function ListItem({ listToken, item, name }) {
+	let { id, isChecked, dateLastPurchased, totalPurchases } = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
