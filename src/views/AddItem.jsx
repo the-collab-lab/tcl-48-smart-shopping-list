@@ -1,31 +1,83 @@
 import { useState } from 'react';
 import { addItem } from '../api/firebase';
 
-export function AddItem({ listToken }) {
+export function AddItem({ listToken, data }) {
 	const [formData, setFormData] = useState({
 		itemName: '',
 		daysUntilNextPurchase: 7,
 	});
 
 	const [message, setMessage] = useState('');
+	const [duplicateError, setDuplicateError] = useState(false);
 
 	const { itemName, daysUntilNextPurchase } = formData;
+
+	// const = [!@#$%^&*()_+,./\\]
+	// itemName.filter(item => item.includes())
+
+	const specialChar = [
+		'$',
+		'&',
+		'+',
+		',',
+		':',
+		';',
+		'=',
+		'?',
+		'@',
+		'#',
+		'|',
+		'<',
+		'>',
+		'.',
+		'^',
+		'*',
+		'(',
+		')',
+		'%',
+		'!',
+		'-',
+	];
+
+	// const regexPattern =
+
+	const isDuplicate = data.some(
+		(item) =>
+			item.name
+				.toLowerCase()
+				.split('')
+				.filter((x) => !specialChar.includes(x) && x !== ' ')
+				.join('') ===
+			itemName
+				.toLowerCase()
+				.split('')
+				.filter((x) => !specialChar.includes(x) && x !== ' ')
+				.join(''),
+	);
+
+	console.log(data);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await addItem(listToken, { itemName, daysUntilNextPurchase });
-			setMessage(`${itemName} added to the list`);
+			if (!isDuplicate) {
+				await addItem(listToken, { itemName, daysUntilNextPurchase });
+				setMessage(`${itemName} added to the list`);
+			} else {
+				setMessage('Item is already in the list');
+				setDuplicateError(true);
+			}
 		} catch (error) {
 			console.log(error);
 			setMessage('Item not added');
 		} finally {
+			setFormData((prevState) => ({
+				...prevState,
+				itemName: '',
+			}));
 			setTimeout(() => {
-				setFormData((prevState) => ({
-					...prevState,
-					itemName: '',
-				}));
 				setMessage('');
+				setDuplicateError(false);
 			}, 2000);
 		}
 	};
