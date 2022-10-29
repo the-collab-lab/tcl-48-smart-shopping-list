@@ -12,9 +12,6 @@ export function AddItem({ listToken, data }) {
 
 	const { itemName, daysUntilNextPurchase } = formData;
 
-	// const = [!@#$%^&*()_+,./\\]
-	// itemName.filter(item => item.includes())
-
 	const specialChar = [
 		'$',
 		'&',
@@ -39,8 +36,6 @@ export function AddItem({ listToken, data }) {
 		'-',
 	];
 
-	// const regexPattern =
-
 	const isDuplicate = data.some(
 		(item) =>
 			item.name
@@ -54,8 +49,6 @@ export function AddItem({ listToken, data }) {
 				.filter((x) => !specialChar.includes(x) && x !== ' ')
 				.join(''),
 	);
-
-	console.log(data);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
