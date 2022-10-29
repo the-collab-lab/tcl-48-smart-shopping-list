@@ -2,7 +2,7 @@ import { ListItem } from '../components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export function List({ data }) {
+export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const clearInput = (e) => {
@@ -33,7 +33,14 @@ export function List({ data }) {
 								item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 							)
 							.map((item) => {
-								return <ListItem key={item.id} name={item.name} />;
+								return (
+									<ListItem
+										key={item.id}
+										name={item.name}
+										listToken={listToken}
+										item={item}
+									/>
+								);
 							})}
 					</ul>
 				</>
