@@ -2,13 +2,18 @@ import './ListItem.css';
 import { useState, useEffect } from 'react';
 import { updateItem } from '../api/firebase';
 
-import { getDaysBetweenDates } from '../utils';
-
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
 export function ListItem({ listToken, item, name }) {
-	let { id, isChecked, dateCreated, dateLastPurchased, totalPurchases } = item;
+	let {
+		id,
+		isChecked,
+		dateCreated,
+		dateLastPurchased,
+		previousEstimate,
+		totalPurchases,
+	} = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
@@ -19,20 +24,6 @@ export function ListItem({ listToken, item, name }) {
 	const timeElasped =
 		currentTimeInMilliseconds - dateLastPurchasedInMilliseconds;
 
-	let days;
-	if (dateLastPurchased) {
-		const itemLastPurchasedDate = dateLastPurchased.seconds;
-		console.log('purchased itemDataLast ', name, itemLastPurchasedDate);
-		days = getDaysBetweenDates(itemLastPurchasedDate);
-		console.log('purchaseDate diff', days);
-	} else {
-		const itemCreationDate = dateCreated.seconds;
-		console.log('created', name, itemCreationDate);
-		days = getDaysBetweenDates(itemCreationDate);
-		console.log('createdDate', days);
-	}
-	const secondsToDays = Math.floor(days / (3600 * 24));
-
 	useEffect(() => {
 		if (timeElasped >= milliSecondsInADay) {
 			const itemData = {
@@ -42,10 +33,6 @@ export function ListItem({ listToken, item, name }) {
 			setIsPurchased(false);
 		}
 	}, [listToken, timeElasped, id]);
-
-	//const estimationTime = new calculateEstimate(previousEstimate, dateLastPurchased, totalPurchases){
-
-	//};
 
 	const handleCheckboxChange = (e) => {
 		if (isPurchased) {
@@ -69,11 +56,17 @@ export function ListItem({ listToken, item, name }) {
 				dateLastPurchased: new Date(),
 				totalPurchases: count,
 			};
-
 			updateItem(listToken, id, itemData);
 			setIsPurchased(true);
 		}
 	};
+
+	useEffect(() => {
+		const itemData = {
+			previousEstimate: previousEstimate,
+		};
+		updateItem(listToken, id, itemData);
+	}, [listToken, id, previousEstimate]);
 
 	return (
 		<li className="ListItem" key={id}>
