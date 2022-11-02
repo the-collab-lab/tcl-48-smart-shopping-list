@@ -23,18 +23,18 @@ export function ListItem({ listToken, item, name }) {
 		? dateLastPurchased.seconds * 1000
 		: null;
 
-	const timeElasped =
+	const timeElapsed =
 		currentTimeInMilliseconds - dateLastPurchasedInMilliseconds;
 
 	useEffect(() => {
-		if (timeElasped >= milliSecondsInADay) {
+		if (timeElapsed >= milliSecondsInADay) {
 			const itemData = {
 				isChecked: false,
 			};
 			updateItem(listToken, id, itemData);
 			setIsPurchased(false);
 		}
-	}, [listToken, timeElasped, id]);
+	}, [listToken, timeElapsed, id]);
 
 	const handleCheckboxChange = (e) => {
 		if (isPurchased) {
@@ -68,26 +68,38 @@ export function ListItem({ listToken, item, name }) {
 	let previousPurchase;
 
 	if (dateLastPurchased) {
-		console.log('purchased itemDataLast ', name, dateLastPurchased);
-		previousPurchase = dateLastPurchased.seconds;
+		previousPurchase = dateLastPurchased.seconds * 1000;
 
 		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.now());
-		//previousPurchase = dateLastPurchased
-		//date = date.Now()
+		console.log(
+			'name=',
+			name,
+			'daysSinceLastPurchased',
+			Math.floor(daysSinceLastPurchase),
+		);
 
-		previousEstimate = getDaysBetweenDates(previousPurchase, dateNextPurchased);
-		//previousPurchase = dateLastPurchased
-		//date = dateNextPurchased
+		previousEstimate = getDaysBetweenDates(
+			previousPurchase,
+			dateNextPurchased.seconds * 1000,
+		);
 
-		console.log('purchaseDate diff', daysSinceLastPurchase);
+		console.log(
+			'name=',
+			name,
+			'purchaseDate diff',
+			Math.floor(previousEstimate),
+		);
 	} else {
-		previousPurchase = dateCreated.seconds;
-		console.log('created', name, dateCreated);
+		previousPurchase = dateCreated.seconds * 1000;
+		// console.log('created', name, dateCreated);
 
 		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.Now());
 
-		previousEstimate = getDaysBetweenDates(previousPurchase, dateNextPurchased);
-		console.log('createdDate', daysSinceLastPurchase);
+		previousEstimate = getDaysBetweenDates(
+			previousPurchase,
+			dateNextPurchased.seconds * 1000,
+		);
+		// console.log('createdDate', daysSinceLastPurchase);
 	}
 	const secondsToDays = Math.floor(daysSinceLastPurchase / (3600 * 24));
 
@@ -97,14 +109,13 @@ export function ListItem({ listToken, item, name }) {
 		totalPurchases,
 	);
 
-	// let smartPurchaseDate = getFutureDate(updatePreviousEstimate);
-
 	useEffect(() => {
 		const itemData = {
 			dateNextPurchased: getFutureDate(updatePreviousEstimate),
 		};
 		updateItem(listToken, id, itemData);
-	}, [listToken, id, dateNextPurchased]);
+	}, []);
+	// }, [listToken, id, dateNextPurchased]);
 
 	return (
 		<li className="ListItem" key={id}>
