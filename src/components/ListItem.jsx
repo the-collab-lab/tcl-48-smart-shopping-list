@@ -1,6 +1,8 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
 import { updateItem } from '../api/firebase';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
@@ -11,7 +13,7 @@ export function ListItem({ listToken, item, name }) {
 		isChecked,
 		dateCreated,
 		dateLastPurchased,
-		previousEstimate,
+		dateNextPurchased,
 		totalPurchases,
 	} = item;
 
@@ -61,12 +63,48 @@ export function ListItem({ listToken, item, name }) {
 		}
 	};
 
+	let daysSinceLastPurchase;
+	let previousEstimate;
+	let previousPurchase;
+
+	if (dateLastPurchased) {
+		console.log('purchased itemDataLast ', name, dateLastPurchased);
+		previousPurchase = dateLastPurchased.seconds;
+
+		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.now());
+		//previousPurchase = dateLastPurchased
+		//date = date.Now()
+
+		previousEstimate = getDaysBetweenDates(previousPurchase, dateNextPurchased);
+		//previousPurchase = dateLastPurchased
+		//date = dateNextPurchased
+
+		console.log('purchaseDate diff', daysSinceLastPurchase);
+	} else {
+		previousPurchase = dateCreated.seconds;
+		console.log('created', name, dateCreated);
+
+		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.Now());
+
+		previousEstimate = getDaysBetweenDates(previousPurchase, dateNextPurchased);
+		console.log('createdDate', daysSinceLastPurchase);
+	}
+	const secondsToDays = Math.floor(daysSinceLastPurchase / (3600 * 24));
+
+	let updatePreviousEstimate = calculateEstimate(
+		previousEstimate,
+		secondsToDays,
+		totalPurchases,
+	);
+
+	// let smartPurchaseDate = getFutureDate(updatePreviousEstimate);
+
 	useEffect(() => {
 		const itemData = {
-			previousEstimate: previousEstimate,
+			dateNextPurchased: getFutureDate(updatePreviousEstimate),
 		};
 		updateItem(listToken, id, itemData);
-	}, [listToken, id, previousEstimate]);
+	}, [listToken, id, dateNextPurchased]);
 
 	return (
 		<li className="ListItem" key={id}>

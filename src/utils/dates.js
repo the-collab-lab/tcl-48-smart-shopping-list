@@ -11,12 +11,12 @@ export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
 
-export function getDaysBetweenDates(previousPurchase) {
+export function getDaysBetweenDates(previousPurchase, date) {
 	// 	//console.log('in dates=',previousPurchase, Date.now());
 	console.log(
 		'dates functions=',
 		Math.floor(Date.now() / 1000),
 		previousPurchase,
 	);
-	return Math.abs((Date.now() - previousPurchase) / ONE_DAY_IN_MILLISECONDS);
+	return Math.abs((date - previousPurchase) / ONE_DAY_IN_MILLISECONDS);
 }
