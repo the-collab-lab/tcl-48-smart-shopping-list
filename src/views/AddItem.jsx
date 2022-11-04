@@ -12,48 +12,18 @@ export function AddItem({ listToken, data }) {
 
 	const { itemName, daysUntilNextPurchase } = formData;
 
-	const specialChar = [
-		'$',
-		'&',
-		'+',
-		',',
-		':',
-		';',
-		'=',
-		'?',
-		'@',
-		'#',
-		'|',
-		'<',
-		'>',
-		'.',
-		'^',
-		'*',
-		'(',
-		')',
-		'%',
-		'!',
-		'-',
-	];
-
 	const isDuplicate = data.some(
 		(item) =>
-			item.name
-				.toLowerCase()
-				.split('')
-				.filter((x) => !specialChar.includes(x) && x !== ' ')
-				.join('') ===
-			itemName
-				.toLowerCase()
-				.split('')
-				.filter((x) => !specialChar.includes(x) && x !== ' ')
-				.join(''),
+			item.name.toLowerCase().replace(/[^a-z0-9]/gi, '') ===
+			itemName.toLowerCase().replace(/[^a-z0-9]/gi, ''),
 	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			if (!isDuplicate) {
+			if (itemName === ' ') {
+				setMessage('Cannot add empty item');
+			} else if (!isDuplicate) {
 				await addItem(listToken, { itemName, daysUntilNextPurchase });
 				setMessage(`${itemName} added to the list`);
 			} else {
