@@ -9,6 +9,8 @@ import {
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';
+import { getDaysBetweenDates } from '../utils';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -68,18 +70,64 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 		isChecked: false,
 		name: itemName,
 		totalPurchases: 0,
-		previousEstimate: 0,
 	});
 }
 
-export async function updateItem(listId, docId, itemData) {
+/**
+ * updates the itemData
+ * @param {string} listId The id of the list we're adding to.
+ * @param {string} id The id of the list item
+ * @param {Object} itemData fields in each document of the firebase collection
+ */
+export async function updateItem(listId, id, itemData) {
 	/**
 	 * TODO: Fill this out so that it uses the correct Firestore function
 	 * to update an existing item! You'll need to figure out what arguments
 	 * this function must accept!
 	 */
+	// this variable gets the days since last transaction
+	let {
+		isChecked,
+		name,
+		dateLastPurchased,
+		dateCreated,
+		dateNextPurchased,
+		totalPurchases,
+	} = itemData;
 
-	const itemCollectionRef = doc(db, listId, docId);
+	let daysSinceLastPurchase;
+	let previousEstimate;
+
+	// if(isChecked){
+
+	if (dateLastPurchased) {
+		previousEstimate = getDaysBetweenDates(
+			dateLastPurchased.toMillis(),
+			dateNextPurchased.toMillis(),
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(dateLastPurchased.toMillis());
+	} else {
+		daysSinceLastPurchase = getDaysBetweenDates(dateCreated.toMillis());
+	}
+
+	let updatePreviousEstimate = calculateEstimate(
+		previousEstimate,
+		daysSinceLastPurchase,
+		totalPurchases,
+	);
+
+	itemData = {
+		// id,
+		// name,
+		// isChecked,
+		// dateCreated,
+		// dateLastPurchased,
+		dateNextPurchased: getFutureDate(updatePreviousEstimate),
+		// totalPurchases,
+	};
+	// }
+	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);
 }
 

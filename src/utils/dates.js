@@ -11,6 +11,9 @@ export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
 
-export function getDaysBetweenDates(previousPurchase, date) {
-	return Math.abs((date - previousPurchase) / ONE_DAY_IN_MILLISECONDS);
+export function getDaysBetweenDates(previousPurchase, currentDate) {
+	if (!currentDate) {
+		currentDate = Date.now();
+	}
+	return Math.abs((currentDate - previousPurchase) / ONE_DAY_IN_MILLISECONDS);
 }

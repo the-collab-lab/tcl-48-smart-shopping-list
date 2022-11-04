@@ -1,8 +1,8 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
 import { updateItem } from '../api/firebase';
-import { getFutureDate, getDaysBetweenDates } from '../utils';
-import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
+// import { getFutureDate, getDaysBetweenDates } from '../utils';
+// import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
@@ -28,22 +28,21 @@ export function ListItem({ listToken, item, name }) {
 
 	useEffect(() => {
 		if (timeElapsed >= milliSecondsInADay) {
-			const itemData = {
+			const newItemData = {
 				isChecked: false,
 			};
-			updateItem(listToken, id, itemData);
+			updateItem(listToken, id, newItemData);
 			setIsPurchased(false);
 		}
 	}, [listToken, timeElapsed, id]);
 
-	const handleCheckboxChange = (e) => {
+	const handleCheckboxChange = () => {
 		if (isPurchased) {
 			const itemData = {
-				name: name,
-				id: id,
 				isChecked: false,
 				dateCreated: dateCreated,
 				dateLastPurchased: dateLastPurchased,
+				dateNextPurchased: dateNextPurchased,
 				totalPurchases: totalPurchases,
 			};
 			setIsPurchased(false);
@@ -51,71 +50,15 @@ export function ListItem({ listToken, item, name }) {
 		} else {
 			const count = totalPurchases + 1;
 			const itemData = {
-				name: name,
-				id: id,
 				isChecked: true,
-				dateCreated: dateCreated,
+				dateCreated: dateCreated.seconds,
 				dateLastPurchased: new Date(),
 				totalPurchases: count,
 			};
-			updateItem(listToken, id, itemData);
 			setIsPurchased(true);
+			updateItem(listToken, id, itemData);
 		}
 	};
-
-	let daysSinceLastPurchase;
-	let previousEstimate;
-	let previousPurchase;
-
-	if (dateLastPurchased) {
-		previousPurchase = dateLastPurchased.seconds * 1000;
-
-		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.now());
-		console.log(
-			'name=',
-			name,
-			'daysSinceLastPurchased',
-			Math.floor(daysSinceLastPurchase),
-		);
-
-		previousEstimate = getDaysBetweenDates(
-			previousPurchase,
-			dateNextPurchased.seconds * 1000,
-		);
-
-		console.log(
-			'name=',
-			name,
-			'purchaseDate diff',
-			Math.floor(previousEstimate),
-		);
-	} else {
-		previousPurchase = dateCreated.seconds * 1000;
-		// console.log('created', name, dateCreated);
-
-		daysSinceLastPurchase = getDaysBetweenDates(previousPurchase, Date.Now());
-
-		previousEstimate = getDaysBetweenDates(
-			previousPurchase,
-			dateNextPurchased.seconds * 1000,
-		);
-		// console.log('createdDate', daysSinceLastPurchase);
-	}
-	const secondsToDays = Math.floor(daysSinceLastPurchase / (3600 * 24));
-
-	let updatePreviousEstimate = calculateEstimate(
-		previousEstimate,
-		secondsToDays,
-		totalPurchases,
-	);
-
-	useEffect(() => {
-		const itemData = {
-			dateNextPurchased: getFutureDate(updatePreviousEstimate),
-		};
-		updateItem(listToken, id, itemData);
-	}, []);
-	// }, [listToken, id, dateNextPurchased]);
 
 	return (
 		<li className="ListItem" key={id}>
