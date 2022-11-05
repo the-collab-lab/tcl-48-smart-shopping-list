@@ -82,37 +82,10 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
  * @param {Object} itemData fields in each document of the firebase collection
  */
 export async function updateItem(listId, id, itemData) {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
-	// this variable gets the days since last transaction
-	//let {
-	//	id,
-
-	//	isChecked,
-	//	//name,
-	//	dateLastPurchased,
-	//	itemData.dateCreated,
-	//	itemData.dateNextPurchased,
-	//	totalPurchases,
-	//} = itemData;
-
 	let daysSinceLastPurchase;
 	let previousEstimate;
 
-	console.log(itemData);
-	// if (isChecked) {
-	console.log('in isChecked condition', itemData.isChecked);
 	if (itemData.dateLastPurchased) {
-		console.log(
-			'itemData.dateNextPurchased1',
-			itemData.dateNextPurchased.toMillis(),
-		);
-		console.log('dateLastPurchased1', itemData.dateLastPurchased.toMillis());
-		console.log('itemData.dateCreated1', itemData.dateCreated);
-
 		previousEstimate = getDaysBetweenDates(
 			itemData.dateLastPurchased.toMillis(),
 			itemData.dateNextPurchased.toMillis(),
@@ -122,10 +95,6 @@ export async function updateItem(listId, id, itemData) {
 			itemData.dateLastPurchased.toMillis(),
 		);
 	} else {
-		console.log('itemData.dateNextPurchased2', itemData.dateNextPurchased);
-		console.log('dateLastPurchased2', itemData.dateLastPurchased);
-		console.log('itemData.dateCreated2', itemData.dateCreated);
-
 		previousEstimate = getDaysBetweenDates(
 			itemData.dateCreated.toMillis(),
 			itemData.dateNextPurchased.toMillis(),
@@ -144,28 +113,7 @@ export async function updateItem(listId, id, itemData) {
 	itemData.dateLastPurchased = new Date();
 	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
 	itemData.totalPurchases = itemData.totalPurchases + 1;
-	//itemData = {
-	//	id,
-	//	//name,
-	//	isChecked,
-	//	itemData.dateCreated,
-	//	dateLastPurchased: new Date(),
-	//	itemData.dateNextPurchased: getFutureDate(updatePreviousEstimate),
-	//	totalPurchases: totalPurchases + 1,
-	//};
-	// }
-	//  else {
-	// 	itemData = {
-	// 		id: id,
-	// 		name: name,
-	// 		isChecked: isChecked,
-	// 		itemData.dateCreated: itemData.dateCreated,
-	// 		dateLastPurchased: dateLastPurchased,
-	// 		itemData.dateNextPurchased: itemData.dateNextPurchased,
-	// 		totalPurchases: totalPurchases,
-	// 	};
-	// }
-	console.log('inside update item:', updatePreviousEstimate);
+
 	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);
 }
