@@ -98,9 +98,14 @@ export async function updateItem(listId, id, itemData) {
 	let daysSinceLastPurchase;
 	let previousEstimate;
 
+	console.log(itemData);
 	// if(isChecked){
 
 	if (dateLastPurchased) {
+		console.log('dateNextPurchased1', dateNextPurchased.toMillis());
+		console.log('dateLastPurchased1', dateLastPurchased.toMillis());
+		console.log('dateCreated1', dateCreated);
+
 		previousEstimate = getDaysBetweenDates(
 			dateLastPurchased.toMillis(),
 			dateNextPurchased.toMillis(),
@@ -116,15 +121,18 @@ export async function updateItem(listId, id, itemData) {
 		daysSinceLastPurchase,
 		totalPurchases,
 	);
+	console.log('dateNextPurchased2', dateNextPurchased);
+	console.log('dateLastPurchased2', dateLastPurchased);
+	console.log('dateCreated2', dateCreated);
 
 	itemData = {
-		// id,
-		// name,
-		// isChecked,
-		// dateCreated,
-		// dateLastPurchased,
+		id,
+		name,
+		isChecked,
+		dateCreated,
+		dateLastPurchased: new Date(),
 		dateNextPurchased: getFutureDate(updatePreviousEstimate),
-		// totalPurchases,
+		totalPurchases,
 	};
 	// }
 	const itemCollectionRef = doc(db, listId, id);

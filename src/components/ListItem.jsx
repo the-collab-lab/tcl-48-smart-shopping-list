@@ -52,7 +52,8 @@ export function ListItem({ listToken, item, name }) {
 			const itemData = {
 				isChecked: true,
 				dateCreated: dateCreated.seconds,
-				dateLastPurchased: new Date(),
+				dateLastPurchased: dateLastPurchased,
+				dateNextPurchased: dateNextPurchased,
 				totalPurchases: count,
 			};
 			setIsPurchased(true);
