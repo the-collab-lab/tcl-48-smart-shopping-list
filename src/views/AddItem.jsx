@@ -1,31 +1,46 @@
 import { useState } from 'react';
 import { addItem } from '../api/firebase';
 
-export function AddItem({ listToken }) {
+export function AddItem({ listToken, data }) {
 	const [formData, setFormData] = useState({
 		itemName: '',
 		daysUntilNextPurchase: 7,
 	});
 
 	const [message, setMessage] = useState('');
+	const [duplicateError, setDuplicateError] = useState(false);
 
 	const { itemName, daysUntilNextPurchase } = formData;
+
+	const isDuplicate = data.some(
+		(item) =>
+			item.name.toLowerCase().replace(/[^a-z0-9]/gi, '') ===
+			itemName.toLowerCase().replace(/[^a-z0-9]/gi, ''),
+	);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await addItem(listToken, { itemName, daysUntilNextPurchase });
-			setMessage(`${itemName} added to the list`);
+			if (itemName === ' ') {
+				setMessage('Cannot add empty item');
+			} else if (!isDuplicate) {
+				await addItem(listToken, { itemName, daysUntilNextPurchase });
+				setMessage(`${itemName} added to the list`);
+			} else {
+				setMessage('Item is already in the list');
+				setDuplicateError(true);
+			}
 		} catch (error) {
 			console.log(error);
 			setMessage('Item not added');
 		} finally {
+			setFormData((prevState) => ({
+				...prevState,
+				itemName: '',
+			}));
 			setTimeout(() => {
-				setFormData((prevState) => ({
-					...prevState,
-					itemName: '',
-				}));
 				setMessage('');
+				setDuplicateError(false);
 			}, 2000);
 		}
 	};
