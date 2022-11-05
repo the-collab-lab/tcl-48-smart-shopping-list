@@ -21,7 +21,7 @@ export function AddItem({ listToken, data }) {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			if (itemName === ' ') {
+			if (itemName.trim().length === 0) {
 				setMessage('Cannot add empty item');
 			} else if (!isDuplicate) {
 				await addItem(listToken, { itemName, daysUntilNextPurchase });
