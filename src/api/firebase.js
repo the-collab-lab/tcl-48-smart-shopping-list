@@ -72,7 +72,7 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 		totalPurchases: 0,
 	});
 
-	console.log('add Item:', dateCreated);
+	//console.log('add Item:', itemData.dateCreated);
 }
 
 /**
@@ -88,54 +88,83 @@ export async function updateItem(listId, id, itemData) {
 	 * this function must accept!
 	 */
 	// this variable gets the days since last transaction
-	let {
-		isChecked,
-		//name,
-		dateLastPurchased,
-		dateCreated,
-		dateNextPurchased,
-		totalPurchases,
-	} = itemData;
+	//let {
+	//	id,
+
+	//	isChecked,
+	//	//name,
+	//	dateLastPurchased,
+	//	itemData.dateCreated,
+	//	itemData.dateNextPurchased,
+	//	totalPurchases,
+	//} = itemData;
 
 	let daysSinceLastPurchase;
 	let previousEstimate;
 
 	console.log(itemData);
-	// if(isChecked){
-
-	if (dateLastPurchased) {
-		console.log('dateNextPurchased1', dateNextPurchased.toMillis());
-		console.log('dateLastPurchased1', dateLastPurchased.toMillis());
-		console.log('dateCreated1', dateCreated);
+	// if (isChecked) {
+	console.log('in isChecked condition', itemData.isChecked);
+	if (itemData.dateLastPurchased) {
+		console.log(
+			'itemData.dateNextPurchased1',
+			itemData.dateNextPurchased.toMillis(),
+		);
+		console.log('dateLastPurchased1', itemData.dateLastPurchased.toMillis());
+		console.log('itemData.dateCreated1', itemData.dateCreated);
 
 		previousEstimate = getDaysBetweenDates(
-			dateLastPurchased.toMillis(),
-			dateNextPurchased.toMillis(),
+			itemData.dateLastPurchased.toMillis(),
+			itemData.dateNextPurchased.toMillis(),
 		);
 
-		daysSinceLastPurchase = getDaysBetweenDates(dateLastPurchased.toMillis());
+		daysSinceLastPurchase = getDaysBetweenDates(
+			itemData.dateLastPurchased.toMillis(),
+		);
 	} else {
-		console.log('dateNextPurchased2', dateNextPurchased);
-		console.log('dateLastPurchased2', dateLastPurchased);
-		console.log('dateCreated2', dateCreated);
-		daysSinceLastPurchase = getDaysBetweenDates(dateCreated.toMillis());
+		console.log('itemData.dateNextPurchased2', itemData.dateNextPurchased);
+		console.log('dateLastPurchased2', itemData.dateLastPurchased);
+		console.log('itemData.dateCreated2', itemData.dateCreated);
+
+		previousEstimate = getDaysBetweenDates(
+			itemData.dateCreated.toMillis(),
+			itemData.dateNextPurchased.toMillis(),
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(
+			itemData.dateCreated.toMillis(),
+		);
 	}
 
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
-		totalPurchases,
+		itemData.totalPurchases,
 	);
-
-	itemData = {
-		id,
-		//name,
-		isChecked,
-		dateCreated,
-		dateLastPurchased: new Date(),
-		dateNextPurchased: getFutureDate(updatePreviousEstimate),
-		totalPurchases,
-	};
+	itemData.dateLastPurchased = new Date();
+	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
+	itemData.totalPurchases = itemData.totalPurchases + 1;
+	//itemData = {
+	//	id,
+	//	//name,
+	//	isChecked,
+	//	itemData.dateCreated,
+	//	dateLastPurchased: new Date(),
+	//	itemData.dateNextPurchased: getFutureDate(updatePreviousEstimate),
+	//	totalPurchases: totalPurchases + 1,
+	//};
+	// }
+	//  else {
+	// 	itemData = {
+	// 		id: id,
+	// 		name: name,
+	// 		isChecked: isChecked,
+	// 		itemData.dateCreated: itemData.dateCreated,
+	// 		dateLastPurchased: dateLastPurchased,
+	// 		itemData.dateNextPurchased: itemData.dateNextPurchased,
+	// 		totalPurchases: totalPurchases,
+	// 	};
+	// }
 	console.log('inside update item:', updatePreviousEstimate);
 	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);

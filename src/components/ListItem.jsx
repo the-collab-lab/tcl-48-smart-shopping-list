@@ -7,9 +7,10 @@ import { updateItem } from '../api/firebase';
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item, name }) {
+export function ListItem({ listToken, item }) {
 	let {
 		id,
+		name,
 		isChecked,
 		dateCreated,
 		dateLastPurchased,
@@ -27,36 +28,44 @@ export function ListItem({ listToken, item, name }) {
 		currentTimeInMilliseconds - dateLastPurchasedInMilliseconds;
 
 	useEffect(() => {
-		if (timeElapsed >= milliSecondsInADay) {
-			const newItemData = {
-				isChecked: false,
-				dateCreated: dateCreated,
-			};
+		if (isChecked && timeElapsed >= milliSecondsInADay) {
+			let newItemData = item;
+			newItemData.isChecked = false;
+			//const newItemData = {
+			//	id,
+			//	isChecked: false,
+			//	dateCreated: dateCreated,s
+			//	dateLastPurchased: dateLastPurchased,
+			//	dateNextPurchased: dateNextPurchased,
+			//	totalPurchases: totalPurchases,
+			//};
 			updateItem(listToken, id, newItemData);
 			setIsPurchased(false);
 		}
 	}, [listToken, timeElapsed, id]);
 
 	const handleCheckboxChange = () => {
+		let itemData = item;
 		if (isPurchased) {
-			const itemData = {
-				isChecked: false,
-				dateCreated: dateCreated,
-				dateLastPurchased: dateLastPurchased,
-				dateNextPurchased: dateNextPurchased,
-				totalPurchases: totalPurchases,
-			};
+			itemData.isChecked = false;
+			//const itemData = {
+			//	isChecked: false,
+			//	dateCreated: dateCreated,
+			//	dateLastPurchased: dateLastPurchased,
+			//	dateNextPurchased: dateNextPurchased,
+			//	totalPurchases: totalPurchases,
+			//};
 			setIsPurchased(false);
 			updateItem(listToken, id, itemData);
 		} else {
-			const count = totalPurchases + 1;
-			const itemData = {
-				isChecked: true,
-				dateCreated: dateCreated,
-				dateLastPurchased: dateLastPurchased,
-				dateNextPurchased: dateNextPurchased,
-				totalPurchases: count,
-			};
+			itemData.isChecked = true;
+			//const itemData = {
+			//	isChecked: true,
+			//	dateCreated: dateCreated,
+			//	dateLastPurchased: dateLastPurchased,
+			//	dateNextPurchased: dateNextPurchased,
+			//	totalPurchases: totalPurchases,
+			//};
 			console.log('total purchases inside handlebox change:', totalPurchases);
 			setIsPurchased(true);
 			updateItem(listToken, id, itemData);
