@@ -30,6 +30,7 @@ export function ListItem({ listToken, item, name }) {
 		if (timeElapsed >= milliSecondsInADay) {
 			const newItemData = {
 				isChecked: false,
+				dateCreated: dateCreated,
 			};
 			updateItem(listToken, id, newItemData);
 			setIsPurchased(false);
@@ -51,11 +52,12 @@ export function ListItem({ listToken, item, name }) {
 			const count = totalPurchases + 1;
 			const itemData = {
 				isChecked: true,
-				dateCreated: dateCreated.seconds,
+				dateCreated: dateCreated,
 				dateLastPurchased: dateLastPurchased,
 				dateNextPurchased: dateNextPurchased,
 				totalPurchases: count,
 			};
+			console.log('total purchases inside handlebox change:', totalPurchases);
 			setIsPurchased(true);
 			updateItem(listToken, id, itemData);
 		}

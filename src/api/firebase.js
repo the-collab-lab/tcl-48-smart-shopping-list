@@ -71,6 +71,8 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 		name: itemName,
 		totalPurchases: 0,
 	});
+
+	console.log('add Item:', dateCreated);
 }
 
 /**
@@ -88,7 +90,7 @@ export async function updateItem(listId, id, itemData) {
 	// this variable gets the days since last transaction
 	let {
 		isChecked,
-		name,
+		//name,
 		dateLastPurchased,
 		dateCreated,
 		dateNextPurchased,
@@ -113,6 +115,9 @@ export async function updateItem(listId, id, itemData) {
 
 		daysSinceLastPurchase = getDaysBetweenDates(dateLastPurchased.toMillis());
 	} else {
+		console.log('dateNextPurchased2', dateNextPurchased);
+		console.log('dateLastPurchased2', dateLastPurchased);
+		console.log('dateCreated2', dateCreated);
 		daysSinceLastPurchase = getDaysBetweenDates(dateCreated.toMillis());
 	}
 
@@ -121,20 +126,17 @@ export async function updateItem(listId, id, itemData) {
 		daysSinceLastPurchase,
 		totalPurchases,
 	);
-	console.log('dateNextPurchased2', dateNextPurchased);
-	console.log('dateLastPurchased2', dateLastPurchased);
-	console.log('dateCreated2', dateCreated);
 
 	itemData = {
 		id,
-		name,
+		//name,
 		isChecked,
 		dateCreated,
 		dateLastPurchased: new Date(),
 		dateNextPurchased: getFutureDate(updatePreviousEstimate),
 		totalPurchases,
 	};
-	// }
+	console.log('inside update item:', updatePreviousEstimate);
 	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);
 }
