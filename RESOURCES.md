@@ -12,6 +12,10 @@
 | 2      | [Week 2 Sync](https://www.youtube.com/watch?v=iljRuBlMUOs) | [3](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/3) & [4](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/4) | -                                                                                                                              | -                                                                    | [Week 2 Retro](https://github.com/orgs/the-collab-lab/projects/30) |
 | 3      | [Week 3 Sync](https://www.youtube.com/watch?v=00kgnKlqJsM) | [5](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/5) & [6](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/6) | [Pair programming slides](https://docs.google.com/presentation/d/1dagfsS1zuiH1lDdVIhecVDU0vsDxgZu_Qf0fn3gOiF0/edit#slide=id.p) | [Pair Programming Resources](#pair-programming-resources)            | -                                                                  |
 | 4      | [Week 4 Sync](https://youtu.be/Bpn-qFiJZds)                | [7](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/7) & [8](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/8) | -                                                                                                                              | [Recording: Resolving Merge Conflicts](https://youtu.be/saGL-qkLyHA) | [Week 4 Retro](https://github.com/orgs/the-collab-lab/projects/31) |
+| 5 | [Week 5 Sync](https://youtu.be/1jQqvzckSTk) | [9](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/9) & [10](https://github.com/the-collab-lab/tcl-48-smart-shopping-list/issues/10) | [Communication for Devs slides](https://docs.google.com/presentation/d/1tD8BH7WmY-ZPUPG1ZYjCmnLLsigMWjxt4xXVyeXrI_c/edit?usp=sharing) | [Communication for Devs resources](#communication-for-devs-resources), [VSCode resources](#vscode-resources) | - |
+| 6 | Week 6 Sync | 11 & 12 | - | - | Week 6 Retro | 
+| 7 | Week 7 Sync | 13 | Accessibility slides | Accessibility resources | - | 
+| 8 | Week 8 Sync | 13 | - | - | Week 8 Retro |
 
 ### Git Resources
 
@@ -45,3 +49,28 @@
 - [How to do Pair Programming the Wrong Way](https://hackernoon.com/how-to-do-pair-programming-wrong-dab72fd15bef)
 - [The Power of Pair Programming Lies in the Execution](https://medium.com/free-code-camp/the-power-of-pair-programming-lies-on-the-execution-a27938447994)
 - [Pair Programming Explained](https://shopify.engineering/pair-programming-explained)
+
+### Communication for Devs Resources
+- [Becoming a Better Writer in Tech](https://blog.pragmaticengineer.com/becoming-a-better-writer-in-tech/)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Conventional Comments](https://conventionalcomments.org/)
+#### Documentation
+- [The Art of Documentation](https://chelseatroy.com/2021/09/14/the-art-of-documentation/)
+- [Google Developer Documentation Style Guide](https://developers.google.com/style)
+- [Google Technical Writing Course](https://developers.google.com/tech-writing/announcements)
+- [Documentation example - React Router docs](https://v5.reactrouter.com/web/guides/quick-start)
+
+#### Pull Requests
+- [Example of a great PR description](https://github.com/the-collab-lab/tcl-3-smart-shopping-list/pull/44)
+
+#### Code Comments
+- [The Art of Code Comments - Sarah Drasner](https://www.youtube.com/watch?v=yhF7OmuIILc)
+- [Example of useful code comments](https://github.com/reach/reach-ui/blob/85ebe4a1445cec6a817265ad4ac06c94b1ed9c11/packages/accordion/src/index.tsx#L107-L112)
+
+### VSCode Resources
+- [VSCode shortcuts - Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+- [VSCode shortcuts - Mac](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
+- [VSCode docs](https://code.visualstudio.com/docs)
+- [VS Code Tips](https://www.iamdeveloper.com/pages/all-vscode-tips/) (series from TCL mentor Nick Taylor!)
+### Accessibility Resources
+- 
