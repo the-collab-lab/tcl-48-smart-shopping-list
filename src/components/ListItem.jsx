@@ -1,6 +1,6 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
@@ -46,6 +46,11 @@ export function ListItem({ listToken, item, name }) {
 			setIsPurchased(true);
 		}
 	};
+	const handleDeleteItem = (e) => {
+		if (window.confirm(`Are you sure you want to delete ${item.name}`)) {
+			deleteItem(listToken, item);
+		}
+	};
 
 	return (
 		<li className="ListItem" key={id}>
@@ -59,6 +64,9 @@ export function ListItem({ listToken, item, name }) {
 				/>
 				{name}
 			</label>
+			<button type="button" onClick={handleDeleteItem}>
+				Delete
+			</button>
 		</li>
 	);
 }
