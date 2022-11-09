@@ -71,8 +71,6 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 		name: itemName,
 		totalPurchases: 0,
 	});
-
-	//console.log('add Item:', itemData.dateCreated);
 }
 
 /**
