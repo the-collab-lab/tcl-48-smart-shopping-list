@@ -61,10 +61,8 @@ export function ListItem({ listToken, item, name, urgency }) {
 					/>
 				</label>
 				<p>{name}</p>
-				{/* just added syles here to see the urgency tag */}
-				<p style={{ background: 'blue', padding: '5px', borderRadius: '10px' }}>
-					{urgency}
-				</p>
+				{/* just added syles here to make the urgency smaller than item tag */}
+				<p style={{ fontSize: '1rem' }}>{urgency}</p>
 			</div>
 		</li>
 	);
