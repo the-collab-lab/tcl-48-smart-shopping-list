@@ -9,6 +9,8 @@ import {
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';
+import { getDaysBetweenDates } from '../utils';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -71,15 +73,47 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(listId, docId, items) {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
+/**
+ * updates the itemData
+ * @param {string} listId The id of the list we're adding to.
+ * @param {string} id The id of the list item
+ * @param {Object} itemData fields in each document of the firebase collection
+ */
+export async function updateItem(listId, id, itemData) {
+	let daysSinceLastPurchase;
+	let previousEstimate;
 
-	const itemCollectionRef = doc(db, listId, docId);
-	return await updateDoc(itemCollectionRef, items);
+	if (itemData.dateLastPurchased) {
+		previousEstimate = getDaysBetweenDates(
+			itemData.dateLastPurchased.toMillis(),
+			itemData.dateNextPurchased.toMillis(),
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(
+			itemData.dateLastPurchased.toMillis(),
+		);
+	} else {
+		previousEstimate = getDaysBetweenDates(
+			itemData.dateCreated.toMillis(),
+			itemData.dateNextPurchased.toMillis(),
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(
+			itemData.dateCreated.toMillis(),
+		);
+	}
+
+	let updatePreviousEstimate = calculateEstimate(
+		previousEstimate,
+		daysSinceLastPurchase,
+		itemData.totalPurchases,
+	);
+	itemData.dateLastPurchased = new Date();
+	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
+	itemData.totalPurchases = itemData.totalPurchases + 1;
+
+	const itemCollectionRef = doc(db, listId, id);
+	return await updateDoc(itemCollectionRef, itemData);
 }
 
 export async function deleteItem() {

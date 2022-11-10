@@ -5,8 +5,16 @@ import { updateItem } from '../api/firebase';
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item, name }) {
-	let { id, isChecked, dateLastPurchased, totalPurchases } = item;
+export function ListItem({ listToken, item }) {
+	let {
+		id,
+		name,
+		isChecked,
+		dateCreated,
+		dateLastPurchased,
+		dateNextPurchased,
+		totalPurchases,
+	} = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
@@ -14,36 +22,31 @@ export function ListItem({ listToken, item, name }) {
 		? dateLastPurchased.seconds * 1000
 		: null;
 
-	const timeElasped =
+	const timeElapsed =
 		currentTimeInMilliseconds - dateLastPurchasedInMilliseconds;
 
 	useEffect(() => {
-		if (timeElasped >= milliSecondsInADay) {
-			const items = {
-				isChecked: false,
-			};
-			updateItem(listToken, id, items);
+		if (isChecked && timeElapsed >= milliSecondsInADay) {
+			let newItemData = item;
+			newItemData.isChecked = false;
+
+			updateItem(listToken, id, newItemData);
 			setIsPurchased(false);
 		}
-	}, [listToken, timeElasped, id]);
+	}, [listToken, timeElapsed, id]);
 
-	const handleCheckboxChange = (e) => {
+	const handleCheckboxChange = () => {
+		let itemData = item;
 		if (isPurchased) {
-			const items = {
-				isChecked: false,
-			};
-			setIsPurchased(false);
-			updateItem(listToken, id, items);
-		} else {
-			const count = totalPurchases + 1;
-			const items = {
-				isChecked: true,
-				dateLastPurchased: new Date(),
-				totalPurchases: count,
-			};
+			itemData.isChecked = false;
 
-			updateItem(listToken, id, items);
+			setIsPurchased(false);
+			updateItem(listToken, id, itemData);
+		} else {
+			itemData.isChecked = true;
+
 			setIsPurchased(true);
+			updateItem(listToken, id, itemData);
 		}
 	};
 
