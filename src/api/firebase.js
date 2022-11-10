@@ -8,7 +8,7 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import { db } from './config';
-import { getFutureDate } from '../utils';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -94,4 +94,57 @@ export async function matchToken(listId) {
 	const jointListTokenQuery = query(collection(db, listId));
 	const jointListTokenSnapshot = await getDocs(jointListTokenQuery);
 	return jointListTokenSnapshot;
+}
+
+export function comparePurchaseUrgency(items) {
+	const sortedItems = [];
+
+	items.forEach((item) => {
+		const differenceInDays = item.dateLastPurchased
+			? getDaysBetweenDates(item.dateLastPurchased)
+			: getDaysBetweenDates(item.dateCreated);
+
+		if (differenceInDays >= 60) {
+			item.isInactive = true;
+			item.urgency = 'Inactive';
+		} else {
+			const differenceTillNextPurchase = getDaysBetweenDates(
+				item.dateNextPurchased,
+			);
+
+			item.isInactive = false;
+			item.days = differenceTillNextPurchase;
+
+			switch (true) {
+				case differenceTillNextPurchase < 0:
+					item.urgency = 'Overdue';
+					break;
+				case differenceTillNextPurchase <= 7:
+					item.urgency = 'Soon';
+					break;
+				case differenceTillNextPurchase > 7 && differenceTillNextPurchase < 30:
+					item.urgency = 'Kind of soon';
+					break;
+				case differenceTillNextPurchase >= 30:
+					item.urgency = 'Not soon';
+					break;
+				default:
+					item.urgency = 'Inactive';
+					break;
+			}
+		}
+	});
+
+	items.sort(
+		(a, b) =>
+			a.isInactive - b.isInactive ||
+			a.days - b.days ||
+			a.name.localeCompare(b.name),
+	);
+
+	items.forEach((item) => {
+		sortedItems.push(item);
+	});
+
+	return sortedItems;
 }
