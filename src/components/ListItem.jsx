@@ -5,7 +5,7 @@ import { updateItem } from '../api/firebase';
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item, name }) {
+export function ListItem({ listToken, item, name, urgency }) {
 	let { id, isChecked, dateLastPurchased, totalPurchases } = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
@@ -49,16 +49,23 @@ export function ListItem({ listToken, item, name }) {
 
 	return (
 		<li className="ListItem" key={id}>
-			<label>
-				<input
-					type="checkbox"
-					id="id"
-					name="id"
-					checked={isPurchased}
-					onChange={handleCheckboxChange}
-				/>
-				{name}
-			</label>
+			{/* just added styles to help with clarity */}
+			<div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+				<label>
+					<input
+						type="checkbox"
+						id="id"
+						name="id"
+						checked={isPurchased}
+						onChange={handleCheckboxChange}
+					/>
+				</label>
+				<p>{name}</p>
+				{/* just added syles here to see the urgency tag */}
+				<p style={{ background: 'blue', padding: '5px', borderRadius: '10px' }}>
+					{urgency}
+				</p>
+			</div>
 		</li>
 	);
 }

@@ -1,6 +1,7 @@
 import { ListItem } from '../components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
@@ -10,9 +11,12 @@ export function List({ data, listToken }) {
 		setSearchQuery('');
 	};
 
+	//data is getting passed through firebase.js function to add the .days and .isInactive fields to each item
+	const sortedData = comparePurchaseUrgency(data);
+
 	return (
 		<>
-			{data.length > 0 ? (
+			{sortedData.length > 0 ? (
 				<>
 					<form className="filterForm">
 						<label htmlFor="searchItems">Filter Items</label>
@@ -28,7 +32,7 @@ export function List({ data, listToken }) {
 						{searchQuery && <button onClick={clearInput}>Clear</button>}
 					</form>
 					<ul>
-						{data
+						{sortedData
 							.filter((item) =>
 								item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 							)
@@ -38,6 +42,8 @@ export function List({ data, listToken }) {
 										key={item.id}
 										name={item.name}
 										listToken={listToken}
+										//added urgency as a prop so we can display the soon, kind of soon, inactive ...
+										urgency={item.urgency}
 										item={item}
 									/>
 								);
