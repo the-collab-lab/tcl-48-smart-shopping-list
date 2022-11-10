@@ -10,15 +10,24 @@ const ONE_DAY_IN_MILLISECONDS = 86400000;
 export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
-// i used the date function that you and kaitlin made
-// added .toDate() after previousPurchase in the equation
-export function getDaysBetweenDates(previousPurchase, currentDate) {
-	if (!currentDate) {
-		currentDate = Date.now();
+
+export function getDaysBetweenDates(previousPurchase, futurePurchase) {
+	const currentDate = Date.now();
+	if (previousPurchase && futurePurchase) {
+		return Math.round(
+			Math.abs(
+				(previousPurchase.toDate() - futurePurchase.toDate()) /
+					ONE_DAY_IN_MILLISECONDS,
+			),
+		);
 	}
-	return Math.round(
-		Math.abs(
+	if (previousPurchase < currentDate) {
+		return Math.round(
+			(previousPurchase.toDate() - currentDate) / ONE_DAY_IN_MILLISECONDS,
+		);
+	} else {
+		return Math.round(
 			(currentDate - previousPurchase.toDate()) / ONE_DAY_IN_MILLISECONDS,
-		),
-	);
+		);
+	}
 }
