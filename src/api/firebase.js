@@ -101,8 +101,8 @@ export function comparePurchaseUrgency(items) {
 
 	items.forEach((item) => {
 		const differenceInDays = item.dateLastPurchased
-			? getDaysBetweenDates(item.dateLastPurchased)
-			: getDaysBetweenDates(item.dateCreated);
+			? getDaysBetweenDates(item.dateLastPurchased, item.dateNextPurchased)
+			: getDaysBetweenDates(item.dateCreated, item.dateNextPurchased);
 
 		if (differenceInDays >= 60) {
 			item.isInactive = true;
