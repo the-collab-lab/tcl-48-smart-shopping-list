@@ -133,10 +133,15 @@ export function comparePurchaseUrgency(items) {
 					break;
 			}
 		}
+
+		if (item.isChecked) {
+			item.urgency = 'Purchased';
+		}
 	});
 
 	items.sort(
 		(a, b) =>
+			a.isChecked - b.isChecked ||
 			a.isInactive - b.isInactive ||
 			a.days - b.days ||
 			a.name.localeCompare(b.name),
