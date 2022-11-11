@@ -6,9 +6,11 @@ import {
 	getDocs,
 	doc,
 	updateDoc,
+	deleteDoc,
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate, getDaysBetweenDates } from '../utils';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -71,23 +73,54 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(listId, docId, items) {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
+/**
+ * updates the itemData
+ * @param {string} listId The id of the list we're adding to.
+ * @param {string} id The id of the list item
+ * @param {Object} itemData fields in each document of the firebase collection
+ */
+export async function updateItem(listId, id, itemData) {
+	let daysSinceLastPurchase;
+	let previousEstimate;
 
-	const itemCollectionRef = doc(db, listId, docId);
-	return await updateDoc(itemCollectionRef, items);
+	if (itemData.dateLastPurchased) {
+		previousEstimate = getDaysBetweenDates(
+			itemData.dateLastPurchased,
+			itemData.dateNextPurchased,
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(itemData.dateLastPurchased);
+	} else {
+		previousEstimate = getDaysBetweenDates(
+			itemData.dateCreated,
+			itemData.dateNextPurchased,
+		);
+
+		daysSinceLastPurchase = getDaysBetweenDates(itemData.dateCreated);
+	}
+
+	let updatePreviousEstimate = calculateEstimate(
+		previousEstimate,
+		daysSinceLastPurchase,
+		itemData.totalPurchases,
+	);
+	itemData.dateLastPurchased = new Date();
+	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
+	itemData.totalPurchases = itemData.totalPurchases + 1;
+
+	const itemCollectionRef = doc(db, listId, id);
+	return await updateDoc(itemCollectionRef, itemData);
 }
 
-export async function deleteItem() {
+export async function deleteItem(listId, itemData) {
 	/**
 	 * TODO: Fill this out so that it uses the correct Firestore function
 	 * to delete an existing item! You'll need to figure out what arguments
 	 * this function must accept!
 	 */
+
+	const itemCollectionRef = doc(db, listId, itemData.id);
+	return await deleteDoc(itemCollectionRef);
 }
 
 export async function matchToken(listId) {

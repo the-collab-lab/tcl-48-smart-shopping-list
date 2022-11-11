@@ -1,12 +1,20 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item, name, urgency }) {
-	let { id, isChecked, dateLastPurchased, totalPurchases } = item;
+export function ListItem({ listToken, item, urgency }) {
+	let {
+		id,
+		name,
+		isChecked,
+		dateCreated,
+		dateLastPurchased,
+		dateNextPurchased,
+		totalPurchases,
+	} = item;
 
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
@@ -14,36 +22,36 @@ export function ListItem({ listToken, item, name, urgency }) {
 		? dateLastPurchased.seconds * 1000
 		: null;
 
-	const timeElasped =
+	const timeElapsed =
 		currentTimeInMilliseconds - dateLastPurchasedInMilliseconds;
 
 	useEffect(() => {
-		if (timeElasped >= milliSecondsInADay) {
-			const items = {
-				isChecked: false,
-			};
-			updateItem(listToken, id, items);
+		if (isChecked && timeElapsed >= milliSecondsInADay) {
+			let newItemData = item;
+			newItemData.isChecked = false;
+
+			updateItem(listToken, id, newItemData);
 			setIsPurchased(false);
 		}
-	}, [listToken, timeElasped, id]);
+	}, [listToken, timeElapsed, id]);
 
-	const handleCheckboxChange = (e) => {
+	const handleCheckboxChange = () => {
+		let itemData = item;
 		if (isPurchased) {
-			const items = {
-				isChecked: false,
-			};
-			setIsPurchased(false);
-			updateItem(listToken, id, items);
-		} else {
-			const count = totalPurchases + 1;
-			const items = {
-				isChecked: true,
-				dateLastPurchased: new Date(),
-				totalPurchases: count,
-			};
+			itemData.isChecked = false;
 
-			updateItem(listToken, id, items);
+			setIsPurchased(false);
+			updateItem(listToken, id, itemData);
+		} else {
+			itemData.isChecked = true;
+
 			setIsPurchased(true);
+			updateItem(listToken, id, itemData);
+		}
+	};
+	const handleDeleteItem = (e) => {
+		if (window.confirm(`Are you sure you want to delete ${item.name}`)) {
+			deleteItem(listToken, item);
 		}
 	};
 
@@ -63,6 +71,9 @@ export function ListItem({ listToken, item, name, urgency }) {
 				<p>{name}</p>
 				{/* just added syles here to make the urgency smaller than item tag */}
 				<p style={{ fontSize: '1rem' }}>{urgency}</p>
+				<button type="button" onClick={handleDeleteItem}>
+					Delete
+				</button>
 			</div>
 		</li>
 	);
