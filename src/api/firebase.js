@@ -80,32 +80,25 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
  * @param {Object} itemData fields in each document of the firebase collection
  */
 export async function updateItem(listId, id, itemData) {
-	let daysSinceLastPurchase;
-	let previousEstimate;
+	const previousEstimate = itemData.daysSinceLastPurchase
+		? getDaysBetweenDates(
+				itemData.dateLastPurchased,
+				itemData.dateNextPurchased,
+		  )
+		: getDaysBetweenDates(itemData.dateCreated, itemData.dateNextPurchased);
 
-	if (itemData.dateLastPurchased) {
-		previousEstimate = getDaysBetweenDates(
-			itemData.dateLastPurchased,
-			itemData.dateNextPurchased,
-		);
-
-		daysSinceLastPurchase = getDaysBetweenDates(itemData.dateLastPurchased);
-	} else {
-		previousEstimate = getDaysBetweenDates(
-			itemData.dateCreated,
-			itemData.dateNextPurchased,
-		);
-
-		daysSinceLastPurchase = getDaysBetweenDates(itemData.dateCreated);
-	}
+	const daysSinceLastPurchase = itemData.daysSinceLastPurchase
+		? getDaysBetweenDates(itemData.dateLastPurchased)
+		: getDaysBetweenDates(itemData.dateCreated);
 
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
 		itemData.totalPurchases,
 	);
+
 	itemData.dateLastPurchased = new Date();
-	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
+	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
 	itemData.totalPurchases = itemData.totalPurchases + 1;
 
 	const itemCollectionRef = doc(db, listId, id);
