@@ -70,7 +70,7 @@ export function ListItem({ listToken, item, urgency }) {
 				</label>
 				<p>{name}</p>
 				{/* just added syles here to make the urgency smaller than item tag */}
-				<p style={{ fontSize: '1rem' }}>{urgency}</p>
+				<p style={{ fontSize: '1rem' }}>{isChecked ? 'Purchased' : urgency}</p>
 				<button type="button" onClick={handleDeleteItem}>
 					Delete
 				</button>
