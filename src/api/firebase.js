@@ -159,18 +159,14 @@ export function comparePurchaseUrgency(items) {
 					break;
 			}
 		}
-
-		if (item.isChecked) {
-			item.urgency = 'Purchased';
-		}
 	});
 
 	items.sort(
-		(a, b) =>
-			a.isChecked - b.isChecked ||
-			a.isInactive - b.isInactive ||
-			a.days - b.days ||
-			a.name.localeCompare(b.name),
+		(firstItem, secondItem) =>
+			firstItem.isChecked - secondItem.isChecked ||
+			firstItem.isInactive - secondItem.isInactive ||
+			firstItem.days - secondItem.days ||
+			firstItem.name.localeCompare(secondItem.name),
 	);
 
 	items.forEach((item) => {
