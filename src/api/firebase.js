@@ -86,19 +86,23 @@ export async function updateItem(listId, id, itemData) {
 				itemData.dateNextPurchased,
 		  )
 		: getDaysBetweenDates(itemData.dateCreated, itemData.dateNextPurchased);
+	console.log('previousEstimate', previousEstimate);
 
 	const daysSinceLastPurchase = itemData.daysSinceLastPurchase
 		? getDaysBetweenDates(itemData.dateLastPurchased)
 		: getDaysBetweenDates(itemData.dateCreated);
-
+	console.log('days since last purchased ', daysSinceLastPurchase);
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
 		itemData.totalPurchases,
 	);
-
+	console.log('update prev purch', updatePreviousEstimate);
+	let tempItem = getFutureDate(16);
+	console.log('tempItem', tempItem);
 	itemData.dateLastPurchased = new Date();
 	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
+	console.log('item data date next purchase', itemData.dateNextPurchased);
 	itemData.totalPurchases = itemData.totalPurchases + 1;
 
 	const itemCollectionRef = doc(db, listId, id);

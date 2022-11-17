@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { addItem } from '../api/firebase';
-
+import { Link, useNavigate } from 'react-router-dom';
 export function AddItem({ listToken, data }) {
 	const [formData, setFormData] = useState({
 		itemName: '',
@@ -9,9 +9,14 @@ export function AddItem({ listToken, data }) {
 
 	const [message, setMessage] = useState('');
 	const [duplicateError, setDuplicateError] = useState(false);
-
+	const navigate = useNavigate();
 	const { itemName, daysUntilNextPurchase } = formData;
-
+	useEffect(() => {
+		if (!listToken) {
+			navigate('/');
+			console.log('no token');
+		}
+	}, [listToken]);
 	const isDuplicate = data.some(
 		(item) =>
 			item.name.toLowerCase().replace(/[^a-z0-9]/gi, '') ===

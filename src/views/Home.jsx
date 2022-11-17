@@ -17,6 +17,11 @@ export function Home({ handleClick, setListToken }) {
 			navigate('/list');
 		} else {
 			setMessageError('Invalid token - no existing list');
+			setListToken(null);
+			setJointListToken('');
+			setTimeout(() => {
+				setMessageError('');
+			}, 3000);
 		}
 	};
 	const handleJointListTokenChange = (e) => {

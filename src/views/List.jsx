@@ -1,10 +1,12 @@
 import { ListItem } from '../components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
+	const navigate = useNavigate();
 
 	const clearInput = (e) => {
 		e.preventDefault();
@@ -13,7 +15,12 @@ export function List({ data, listToken }) {
 
 	//data is getting passed through firebase.js function to add the .days and .isInactive fields to each item
 	const sortedData = comparePurchaseUrgency(data);
-
+	useEffect(() => {
+		if (!listToken) {
+			navigate('/');
+			console.log('no token');
+		}
+	}, [listToken]);
 	return (
 		<>
 			{sortedData.length > 0 ? (
@@ -42,13 +49,70 @@ export function List({ data, listToken }) {
 										key={item.id}
 										name={item.name}
 										listToken={listToken}
-										//added urgency as a prop so we can display the soon, kind of soon, inactive ...
 										urgency={item.urgency}
 										item={item}
 									/>
 								);
 							})}
 					</ul>
+
+					<div>
+						{' '}
+						<p>Soon</p>
+						<ul>
+							{sortedData
+								.filter((item) => item.urgency === 'Soon')
+								.map((item) => {
+									return (
+										<ListItem
+											key={item.id}
+											name={item.name}
+											listToken={listToken}
+											//urgency={item.urgency}
+											item={item}
+										/>
+									);
+								})}
+						</ul>
+					</div>
+					<div>
+						{' '}
+						<p>Kind of Soon</p>
+						<ul>
+							{sortedData
+								.filter((item) => item.urgency === 'Kind of soon')
+								.map((item) => {
+									return (
+										<ListItem
+											key={item.id}
+											name={item.name}
+											listToken={listToken}
+											//urgency={item.urgency}
+											item={item}
+										/>
+									);
+								})}
+						</ul>
+					</div>
+					<div>
+						{' '}
+						<p>Not Soon</p>
+						<ul>
+							{sortedData
+								.filter((item) => item.urgency === 'Not soon')
+								.map((item) => {
+									return (
+										<ListItem
+											key={item.id}
+											name={item.name}
+											listToken={listToken}
+											//urgency={item.urgency}
+											item={item}
+										/>
+									);
+								})}
+						</ul>
+					</div>
 				</>
 			) : (
 				<div>
