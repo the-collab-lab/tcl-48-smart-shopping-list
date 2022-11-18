@@ -29,7 +29,9 @@ export function Home({ handleClick, setListToken }) {
 	};
 	return (
 		<div className="Home">
-			<button type="button" onClick={handleClick}>
+			<h1>Welcome!</h1>
+			<p>Smart Shopping List</p>
+			<button area-label="create list" type="button" onClick={handleClick}>
 				Create list
 			</button>
 			<p>- or -</p>
@@ -47,7 +49,9 @@ export function Home({ handleClick, setListToken }) {
 					/>
 				</label>
 				<p>{messageError}</p>
-				<button type="submit">Join an existing list</button>
+				<button area-label="Join existing list" type="submit">
+					Join an existing list
+				</button>
 			</form>
 		</div>
 	);

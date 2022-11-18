@@ -59,22 +59,22 @@ export function AddItem({ listToken, data }) {
 		<div>
 			{listToken ? (
 				<div>
+					<h2>ADD AN ITEM TO YOUR INVENTORY</h2>
 					<form onSubmit={handleSubmit}>
-						<div>
-							<label htmlFor="itemName">Item Name:</label>
-						</div>
-						<input
-							type="text"
-							name="itemName"
-							id="itemName"
-							placeholder="item name"
-							value={itemName}
-							onChange={handleChange}
-							required
-						/>
+						<label htmlFor="itemName">
+							<input
+								type="text"
+								name="itemName"
+								id="itemName"
+								placeholder="Enter item name"
+								value={itemName}
+								onChange={handleChange}
+								required
+							/>
+						</label>
 						<div>
 							<fieldset>
-								<legend>How soon will you buy this again?</legend>
+								<legend>When will you buy this item again?</legend>
 								<div>
 									<input
 										type="radio"
@@ -85,7 +85,13 @@ export function AddItem({ listToken, data }) {
 										checked={7 === parseInt(daysUntilNextPurchase)}
 										//defaultChecked
 									/>
-									<label htmlFor="soon">Soon</label>
+									<label htmlFor="soon">
+										Soon{' '}
+										<span style={{ fontSize: '1rem' }}>
+											{' '}
+											in the next 7 days
+										</span>
+									</label>
 								</div>
 								<div>
 									<input
@@ -96,7 +102,13 @@ export function AddItem({ listToken, data }) {
 										onChange={handleChange}
 										checked={14 === parseInt(daysUntilNextPurchase)}
 									/>
-									<label htmlFor="kind-of-soon">Kind of soon</label>
+									<label htmlFor="kind-of-soon">
+										Kind of soon{' '}
+										<span style={{ fontSize: '1rem' }}>
+											{' '}
+											in the next 14 days
+										</span>
+									</label>
 								</div>
 								<div>
 									<input
@@ -107,13 +119,19 @@ export function AddItem({ listToken, data }) {
 										onChange={handleChange}
 										checked={30 === parseInt(daysUntilNextPurchase)}
 									/>
-									<label htmlFor="not-soon">Not soon</label>
+									<label htmlFor="not-soon">
+										Not soon{' '}
+										<span style={{ fontSize: '1rem' }}>
+											{' '}
+											in the next 30 days
+										</span>
+									</label>
 								</div>
 							</fieldset>
 							<p>{message}</p>
 						</div>
 						<div>
-							<button area-label="add-item" type="submit">
+							<button area-label="add item" type="submit">
 								Add Item
 							</button>
 						</div>
@@ -123,7 +141,10 @@ export function AddItem({ listToken, data }) {
 				<p>
 					{' '}
 					Please create or join a list to start adding items. Please visit{' '}
-					<Link to="/">Home</Link> for options.
+					<Link to="/" style={{ color: 'white' }}>
+						Home
+					</Link>{' '}
+					for options.
 				</p>
 			)}
 		</div>

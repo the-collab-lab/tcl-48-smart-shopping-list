@@ -1,10 +1,10 @@
 import { ListItem } from '../components';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { comparePurchaseUrgency } from '../api/firebase';
+import { Sublist } from '../components/SubList';
 export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
-	const navigate = useNavigate();
 
 	const clearInput = (e) => {
 		e.preventDefault();
@@ -13,30 +13,34 @@ export function List({ data, listToken }) {
 
 	//data is getting passed through firebase.js function to add the .days and .isInactive fields to each item
 	const sortedData = comparePurchaseUrgency(data);
-	// useEffect(() => {
-	// 	if (!listToken) {
-	// 		navigate('/');
-	// 		console.log('no token');
-	// 	}
-	// }, [listToken]);
+
 	return (
 		<>
+			<Sublist subList={listToken} subItems={sortedData}></Sublist>
 			{sortedData.length > 0 ? (
 				<>
+					<h2>YOUR INVENTORY</h2>
 					<p>Token name for current list is "{listToken}"</p>
 					<form className="filterForm">
-						<label htmlFor="searchItems">Filter Items</label>
-						<input
-							type="text"
-							id="searchItems"
-							name="searchItems"
-							value={searchQuery}
-							placeholder="Start typing here"
-							autoComplete="off"
-							onChange={(e) => setSearchQuery(e.target.value)}
-						/>
-						{searchQuery && <button onClick={clearInput}>Clear</button>}
+						<label htmlFor="searchItems">
+							<input
+								type="text"
+								id="searchItems"
+								name="searchItems"
+								value={searchQuery}
+								placeholder="Search for an item"
+								autoComplete="off"
+								onChange={(e) => setSearchQuery(e.target.value)}
+							/>
+						</label>
+
+						{searchQuery && (
+							<button area-label="clear input" onClick={clearInput}>
+								Clear
+							</button>
+						)}
 					</form>
+
 					<ul>
 						{sortedData
 							.filter((item) =>
@@ -128,7 +132,10 @@ export function List({ data, listToken }) {
 								Nothing to show!
 								<br />
 								The shopping list has not been created or joined. Please visit{' '}
-								<Link to="/">Home</Link> for options.
+								<Link to="/" style={{ color: 'white' }}>
+									Home
+								</Link>{' '}
+								for options.
 							</p>
 						</>
 					)}
