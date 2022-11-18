@@ -1,9 +1,7 @@
 import { ListItem } from '../components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { comparePurchaseUrgency } from '../api/firebase';
-
 export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
 	const navigate = useNavigate();
@@ -15,16 +13,17 @@ export function List({ data, listToken }) {
 
 	//data is getting passed through firebase.js function to add the .days and .isInactive fields to each item
 	const sortedData = comparePurchaseUrgency(data);
-	useEffect(() => {
-		if (!listToken) {
-			navigate('/');
-			console.log('no token');
-		}
-	}, [listToken]);
+	// useEffect(() => {
+	// 	if (!listToken) {
+	// 		navigate('/');
+	// 		console.log('no token');
+	// 	}
+	// }, [listToken]);
 	return (
 		<>
 			{sortedData.length > 0 ? (
 				<>
+					<p>Token name for current list is "{listToken}"</p>
 					<form className="filterForm">
 						<label htmlFor="searchItems">Filter Items</label>
 						<input
@@ -55,7 +54,6 @@ export function List({ data, listToken }) {
 								);
 							})}
 					</ul>
-
 					<div>
 						{' '}
 						<p>Soon</p>
@@ -116,8 +114,24 @@ export function List({ data, listToken }) {
 				</>
 			) : (
 				<div>
-					<p>Your shopping list is currently empty.</p>
-					<Link to="/add-item">Add your first item!</Link>
+					{listToken ? (
+						<>
+							<p>
+								A shopping list with token name: "{listToken}" has been created
+								and is currently empty.
+							</p>
+							<Link to="/add-item">Let's add your first item!</Link>{' '}
+						</>
+					) : (
+						<>
+							<p>
+								Nothing to show!
+								<br />
+								The shopping list has not been created or joined. Please visit{' '}
+								<Link to="/">Home</Link> for options.
+							</p>
+						</>
+					)}
 				</div>
 			)}
 		</>
