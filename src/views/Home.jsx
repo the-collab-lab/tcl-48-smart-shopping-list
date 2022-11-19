@@ -29,8 +29,8 @@ export function Home({ handleClick, setListToken }) {
 	};
 	return (
 		<div className="Home">
-			<h1>Welcome!</h1>
-			<p>Smart Shopping List</p>
+			<h1>Welcome to Smart Shopping List!</h1>
+
 			<button area-label="create list" type="button" onClick={handleClick}>
 				Create list
 			</button>

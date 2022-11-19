@@ -1,7 +1,9 @@
 import { Outlet, NavLink } from 'react-router-dom';
 
 import './Layout.css';
-import homeIcon from '../../src/images/Iconsax/Bold/Vector.png';
+import homeIcon from '../../src/images/HomeIcon.png';
+import listIcon from '../../src/images/ListIcon.png';
+import addItemIcon from '../../src/images/AddItemIcon.png';
 /**
  * TODO: The links defined in this file don't work!
  *
@@ -21,10 +23,10 @@ export function Layout() {
 							<img src={homeIcon} />
 						</NavLink>
 						<NavLink to="/list" className="Nav-link">
-							List
+							<img src={listIcon} />
 						</NavLink>
 						<NavLink to="/add-item" className="Nav-link">
-							Add Item
+							<img src={addItemIcon} />
 						</NavLink>
 					</nav>
 				</header>

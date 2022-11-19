@@ -210,7 +210,6 @@ export function comparePurchaseUrgency(items) {
 		}
 	});
 
-	// const sortedItems = [overdueList, soonList, kindOfSoonList, notSoonList, purchasedList, inactiveList]
 	const sortedItems = [
 		{ Overdue: overdueList },
 		{ Soon: soonList },
