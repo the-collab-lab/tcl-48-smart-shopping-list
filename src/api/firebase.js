@@ -91,15 +91,15 @@ export async function updateItem(listId, id, itemData) {
 	const daysSinceLastPurchase = itemData.daysSinceLastPurchase
 		? getDaysBetweenDates(itemData.dateLastPurchased)
 		: getDaysBetweenDates(itemData.dateCreated);
-	console.log('days since last purchased ', daysSinceLastPurchase);
+	//console.log('days since last purchased ', daysSinceLastPurchase);
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
 		itemData.totalPurchases,
 	);
-	console.log('update prev purch', updatePreviousEstimate);
-	let tempItem = getFutureDate(16);
-	console.log('tempItem', tempItem);
+	//console.log('update prev purch', updatePreviousEstimate);
+	//let tempItem = getFutureDate(16);
+	//console.log('tempItem', tempItem);
 	itemData.dateLastPurchased = new Date();
 	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
 	console.log('item data date next purchase', itemData.dateNextPurchased);
@@ -127,7 +127,12 @@ export async function matchToken(listId) {
 }
 
 export function comparePurchaseUrgency(items) {
-	const sortedItems = [];
+	const overdueList = [];
+	const soonList = [];
+	const kindOfSoonList = [];
+	const notSoonList = [];
+	const purchasedList = [];
+	const inactiveList = [];
 
 	items.forEach((item) => {
 		const differenceInDays = item.dateLastPurchased
@@ -162,6 +167,19 @@ export function comparePurchaseUrgency(items) {
 					item.urgency = 'Inactive';
 					break;
 			}
+			// if(item.isChecked){
+			// 	item.urgency = "Purchased"
+			// } else if (differenceTillNextPurchase < 0){
+			// 	item.urgency = "Overdue"
+			// } else if (differenceTillNextPurchase <= 7){
+			// 	item.urgency = "Soon"
+			// } else if (differenceTillNextPurchase > 7 && differenceTillNextPurchase < 30){
+			// 	item.urgency = "Kind of soon"
+			// } else if (differenceTillNextPurchase >= 30){
+			// 	item.urgency = "Not soon"
+			// } else{
+			// 	item.urgency = "Inactive"
+			// }
 		}
 	});
 
@@ -174,8 +192,30 @@ export function comparePurchaseUrgency(items) {
 	);
 
 	items.forEach((item) => {
-		sortedItems.push(item);
+		if (item.urgency === 'Overdue') {
+			overdueList.push(item);
+		} else if (item.urgency === 'Soon') {
+			soonList.push(item);
+		} else if (item.urgency === 'Kind of soon') {
+			kindOfSoonList.push(item);
+		} else if (item.urgency === 'Not soon') {
+			notSoonList.push(item);
+		} else if (item.urgency === 'Purchased') {
+			purchasedList.push(item);
+		} else {
+			inactiveList.push(item);
+		}
 	});
+
+	// const sortedItems = [overdueList, soonList, kindOfSoonList, notSoonList, purchasedList, inactiveList]
+	const sortedItems = [
+		{ Overdue: overdueList },
+		{ Soon: soonList },
+		{ 'Kind of soon': kindOfSoonList },
+		{ 'Not soon': notSoonList },
+		{ Purchased: purchasedList },
+		{ Inactive: inactiveList },
+	];
 
 	return sortedItems;
 }

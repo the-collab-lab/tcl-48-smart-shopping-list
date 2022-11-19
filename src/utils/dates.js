@@ -13,7 +13,7 @@ export function getFutureDate(offset) {
 
 export function getDaysBetweenDates(previousPurchase, futurePurchase) {
 	const currentDate = new Date();
-	console.log(previousPurchase, futurePurchase);
+	// console.log(previousPurchase, futurePurchase);
 	if (previousPurchase && futurePurchase) {
 		//console.log(`${previousPurchase && futurePurchase} previous and current`)
 		return Math.round(
@@ -24,7 +24,7 @@ export function getDaysBetweenDates(previousPurchase, futurePurchase) {
 		);
 	}
 	if (previousPurchase < currentDate) {
-		console.log(previousPurchase < currentDate);
+		// console.log(previousPurchase < currentDate);
 		return Math.round(
 			(previousPurchase.toDate() - currentDate) / ONE_DAY_IN_MILLISECONDS,
 		);
