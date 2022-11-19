@@ -16,18 +16,26 @@ export function List({ data, listToken }) {
 
 	return (
 		<div>
+			<h2>YOUR INVENTORY</h2>
+			<p>Token name for current list is "{listToken}"</p>
 			<form className="filterForm">
-				<label htmlFor="searchItems">Filter Items</label>
-				<input
-					type="text"
-					id="searchItems"
-					name="searchItems"
-					value={searchQuery}
-					placeholder="Start typing here"
-					autoComplete="off"
-					onChange={(e) => setSearchQuery(e.target.value)}
-				/>
-				{searchQuery && <button onClick={clearInput}>Clear</button>}
+				<label htmlFor="searchItems">
+					<input
+						type="text"
+						id="searchItems"
+						name="searchItems"
+						value={searchQuery}
+						placeholder="Search for an item"
+						autoComplete="off"
+						onChange={(e) => setSearchQuery(e.target.value)}
+					/>
+				</label>
+
+				{searchQuery && (
+					<button area-label="clear input" onClick={clearInput}>
+						Clear
+					</button>
+				)}
 			</form>
 			{sortedData.map((item, i) => {
 				return (
@@ -42,7 +50,7 @@ export function List({ data, listToken }) {
 		</div>
 	);
 	// <>
-	// 	<Sublist subList={listToken} subItems={sortedData}></Sublist>
+
 	// 	{sortedData.length > 0 ? (
 	// 		<>
 	// 			<h2>YOUR INVENTORY</h2>
@@ -84,63 +92,7 @@ export function List({ data, listToken }) {
 	// 						);
 	// 					})}
 	// 			</ul>
-	// 			<div>
-	// 				{' '}
-	// 				<p>Soon</p>
-	// 				<ul>
-	// 					{sortedData
-	// 						.filter((item) => item.urgency === 'Soon')
-	// 						.map((item) => {
-	// 							return (
-	// 								<ListItem
-	// 									key={item.id}
-	// 									name={item.name}
-	// 									listToken={listToken}
-	// 									//urgency={item.urgency}
-	// 									item={item}
-	// 								/>
-	// 							);
-	// 						})}
-	// 				</ul>
-	// 			</div>
-	// 			<div>
-	// 				{' '}
-	// 				<p>Kind of Soon</p>
-	// 				<ul>
-	// 					{sortedData
-	// 						.filter((item) => item.urgency === 'Kind of soon')
-	// 						.map((item) => {
-	// 							return (
-	// 								<ListItem
-	// 									key={item.id}
-	// 									name={item.name}
-	// 									listToken={listToken}
-	// 									//urgency={item.urgency}
-	// 									item={item}
-	// 								/>
-	// 							);
-	// 						})}
-	// 				</ul>
-	// 			</div>
-	// 			<div>
-	// 				{' '}
-	// 				<p>Not Soon</p>
-	// 				<ul>
-	// 					{sortedData
-	// 						.filter((item) => item.urgency === 'Not soon')
-	// 						.map((item) => {
-	// 							return (
-	// 								<ListItem
-	// 									key={item.id}
-	// 									name={item.name}
-	// 									listToken={listToken}
-	// 									//urgency={item.urgency}
-	// 									item={item}
-	// 								/>
-	// 							);
-	// 						})}
-	// 				</ul>
-	// 			</div>
+	//
 	// 		</>
 	// 	) : (
 	// 		<div>
