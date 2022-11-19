@@ -20,13 +20,13 @@ export function Layout() {
 					{/* <h1>Smart shopping list</h1> */}
 					<nav className="Nav">
 						<NavLink to="/" className="Nav-link">
-							<img src={homeIcon} />
+							<img alt="home navigation icon" src={homeIcon} />
 						</NavLink>
 						<NavLink to="/list" className="Nav-link">
-							<img src={listIcon} />
+							<img alt="list navigation icon" src={listIcon} />
 						</NavLink>
 						<NavLink to="/add-item" className="Nav-link">
-							<img src={addItemIcon} />
+							<img alt="add item navigation icon" src={addItemIcon} />
 						</NavLink>
 					</nav>
 				</header>
