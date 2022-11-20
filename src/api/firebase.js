@@ -150,23 +150,6 @@ export function comparePurchaseUrgency(items) {
 			item.isInactive = false;
 			item.days = differenceTillNextPurchase;
 
-			// switch (true) {
-			// 	case differenceTillNextPurchase < 0:
-			// 		item.urgency = 'Overdue';
-			// 		break;
-			// 	case differenceTillNextPurchase <= 7:
-			// 		item.urgency = 'Soon';
-			// 		break;
-			// 	case differenceTillNextPurchase > 7 && differenceTillNextPurchase < 30:
-			// 		item.urgency = 'Kind of soon';
-			// 		break;
-			// 	case differenceTillNextPurchase >= 30:
-			// 		item.urgency = 'Not soon';
-			// 		break;
-			// 	default:
-			// 		item.urgency = 'Inactive';
-			// 		break;
-			// }
 			if (item.isChecked) {
 				item.urgency = 'Purchased';
 			} else if (differenceTillNextPurchase < 0) {

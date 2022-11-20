@@ -2,7 +2,8 @@ import { ListItem } from '../components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { comparePurchaseUrgency } from '../api/firebase';
-import Sublist from '../components/SubList';
+import SubList from '../components/SubList';
+
 export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
 
@@ -11,9 +12,38 @@ export function List({ data, listToken }) {
 		setSearchQuery('');
 	};
 
-	//data is getting passed through firebase.js function to add the .days and .isInactive fields to each item
-	const sortedData = comparePurchaseUrgency(data);
+	// const overdueList = [];
+	// const soonList = [];
+	// const kindOfSoonList = [];
+	// const notSoonList = [];
+	// const purchasedList = [];
+	// const inactiveList = [];
+	// data.forEach((item) => {
+	// 	if (item.urgency === 'Overdue') {
+	// 		overdueList.push(item);
+	// 	} else if (item.urgency === 'Soon') {
+	// 		soonList.push(item);
+	// 	} else if (item.urgency === 'Kind of soon') {
+	// 		kindOfSoonList.push(item);
+	// 	} else if (item.urgency === 'Not soon') {
+	// 		notSoonList.push(item);
+	// 	} else if (item.urgency === 'Purchased') {
+	// 		purchasedList.push(item);
+	// 	} else {
+	// 		inactiveList.push(item);
+	// 	}
+	// });
 
+	// const sortedItems = [
+	// 	{ Overdue: overdueList },
+	// 	{ Soon: soonList },
+	// 	{ 'Kind of soon': kindOfSoonList },
+	// 	{ 'Not soon': notSoonList },
+	// 	{ Purchased: purchasedList },
+	// 	{ Inactive: inactiveList },
+	// ];
+
+	const sortedItems = comparePurchaseUrgency(data);
 	return (
 		<div>
 			<h2>YOUR INVENTORY</h2>
@@ -37,16 +67,18 @@ export function List({ data, listToken }) {
 					</button>
 				)}
 			</form>
-			{sortedData.map((item, i) => {
-				return (
-					<Sublist
-						key={i}
-						category={item}
-						listToken={listToken}
-						searchQuery={searchQuery}
-					/>
-				);
-			})}
+			{sortedItems
+				.filter((object) => Object.values(object)[0].length !== 0)
+				.map((item, i) => {
+					return (
+						<SubList
+							key={i}
+							category={item}
+							listToken={listToken}
+							searchQuery={searchQuery}
+						/>
+					);
+				})}
 		</div>
 	);
 	// <>
