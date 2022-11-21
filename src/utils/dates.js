@@ -17,13 +17,11 @@ export function getDaysBetweenDates(previousPurchase, futurePurchase) {
 	if (previousPurchase && futurePurchase) {
 		//console.log(`${previousPurchase && futurePurchase} previous and current`)
 		return Math.round(
-			Math.abs(
-				(previousPurchase.toDate() - futurePurchase.toDate()) /
-					ONE_DAY_IN_MILLISECONDS,
-			),
+			(futurePurchase.toDate() - previousPurchase.toDate()) /
+				ONE_DAY_IN_MILLISECONDS,
 		);
 	}
-	if (previousPurchase < currentDate) {
+	if (!previousPurchase) {
 		// console.log(previousPurchase < currentDate);
 		return Math.round(
 			(previousPurchase.toDate() - currentDate) / ONE_DAY_IN_MILLISECONDS,
