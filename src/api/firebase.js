@@ -33,10 +33,6 @@ export function streamListItems(listId, handleSuccess) {
  */
 export function getItemData(snapshot) {
 	return snapshot.docs.map((docRef) => {
-		/**
-		 * We must call a special `.data()` method to get the data
-		 * out of the referenced document
-		 */
 		const data = docRef.data();
 
 		/**
@@ -58,7 +54,7 @@ export function getItemData(snapshot) {
  */
 export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listId);
-	// TODO: Replace this call to console.log with the appropriate
+
 	// Firebase function, so this information is sent to your database!
 	return await addDoc(listCollectionRef, {
 		dateCreated: new Date(),
@@ -86,23 +82,19 @@ export async function updateItem(listId, id, itemData) {
 				itemData.dateNextPurchased,
 		  )
 		: getDaysBetweenDates(itemData.dateCreated, itemData.dateNextPurchased);
-	console.log('previousEstimate', previousEstimate);
 
 	const daysSinceLastPurchase = itemData.daysSinceLastPurchase
 		? getDaysBetweenDates(itemData.dateLastPurchased)
 		: getDaysBetweenDates(itemData.dateCreated);
-	//console.log('days since last purchased ', daysSinceLastPurchase);
+
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
 		itemData.totalPurchases,
 	);
-	//console.log('update prev purch', updatePreviousEstimate);
-	//let tempItem = getFutureDate(16);
-	//console.log('tempItem', tempItem);
+
 	itemData.dateLastPurchased = new Date();
 	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
-	console.log('item data date next purchase', itemData.dateNextPurchased);
 	itemData.totalPurchases = itemData.totalPurchases + 1;
 
 	const itemCollectionRef = doc(db, listId, id);
@@ -110,12 +102,6 @@ export async function updateItem(listId, id, itemData) {
 }
 
 export async function deleteItem(listId, itemData) {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to delete an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
-
 	const itemCollectionRef = doc(db, listId, itemData.id);
 	return await deleteDoc(itemCollectionRef);
 }
