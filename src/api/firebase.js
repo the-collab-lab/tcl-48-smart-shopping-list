@@ -135,37 +135,31 @@ export function comparePurchaseUrgency(items) {
 	const inactiveList = [];
 
 	items.forEach((item) => {
-		const differenceInDays = item.dateLastPurchased
+		const differenceTillNextPurchase = item.dateLastPurchased
 			? getDaysBetweenDates(item.dateLastPurchased, item.dateNextPurchased)
 			: getDaysBetweenDates(item.dateCreated, item.dateNextPurchased);
 
-		if (differenceInDays >= 60) {
-			item.isInactive = true;
+		item.days = differenceTillNextPurchase;
+
+		console.log(differenceTillNextPurchase);
+
+		if (item.isChecked) {
+			item.urgency = 'Purchased';
+		} else if (differenceTillNextPurchase >= 60) {
 			item.urgency = 'Inactive';
+		} else if (differenceTillNextPurchase < 0) {
+			item.urgency = 'Overdue';
+		} else if (differenceTillNextPurchase <= 7) {
+			item.urgency = 'Soon';
+		} else if (
+			differenceTillNextPurchase > 7 &&
+			differenceTillNextPurchase < 30
+		) {
+			item.urgency = 'Kind of soon';
+		} else if (differenceTillNextPurchase >= 30) {
+			item.urgency = 'Not soon';
 		} else {
-			const differenceTillNextPurchase = getDaysBetweenDates(
-				item.dateNextPurchased,
-			);
-
-			item.isInactive = false;
-			item.days = differenceTillNextPurchase;
-
-			if (item.isChecked) {
-				item.urgency = 'Purchased';
-			} else if (differenceTillNextPurchase < 0) {
-				item.urgency = 'Overdue';
-			} else if (differenceTillNextPurchase <= 7) {
-				item.urgency = 'Soon';
-			} else if (
-				differenceTillNextPurchase > 7 &&
-				differenceTillNextPurchase < 30
-			) {
-				item.urgency = 'Kind of soon';
-			} else if (differenceTillNextPurchase >= 30) {
-				item.urgency = 'Not soon';
-			} else {
-				item.urgency = 'Inactive';
-			}
+			item.urgency = null;
 		}
 	});
 
