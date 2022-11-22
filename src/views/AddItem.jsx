@@ -142,7 +142,7 @@ export function AddItem({ listToken, data }) {
 					<p> Please create or join a list to start adding items.</p>
 					<p>
 						Visit{' '}
-						<Link to="/" style={{ color: 'white' }}>
+						<Link to="/" style={{ color: '#008882' }}>
 							Home
 						</Link>{' '}
 						for options.

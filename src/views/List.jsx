@@ -57,7 +57,7 @@ export function List({ data, listToken }) {
 						A shopping list with token name: "{listToken}" has been created and
 						is currently empty.
 					</p>
-					<Link style={{ color: 'white' }} to="/add-item">
+					<Link style={{ color: '#008882' }} to="/add-item">
 						Let's add your first item!
 					</Link>{' '}
 				</>
@@ -67,7 +67,7 @@ export function List({ data, listToken }) {
 					<p>The shopping list has not been created or joined.</p>
 					<p>
 						Please visit{' '}
-						<Link to="/" style={{ color: 'white' }}>
+						<Link to="/" style={{ color: '#008882' }}>
 							Home
 						</Link>{' '}
 						for options.
