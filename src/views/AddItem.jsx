@@ -139,14 +139,16 @@ export function AddItem({ listToken, data }) {
 					</form>
 				</div>
 			) : (
-				<p>
-					{' '}
-					Please create or join a list to start adding items. Please visit{' '}
-					<Link to="/" style={{ color: 'white' }}>
-						Home
-					</Link>{' '}
-					for options.
-				</p>
+				<>
+					<p> Please create or join a list to start adding items.</p>
+					<p>
+						Visit{' '}
+						<Link to="/" style={{ color: '#008882' }}>
+							Home
+						</Link>{' '}
+						for options.
+					</p>
+				</>
 			)}
 		</div>
 	);

@@ -33,6 +33,11 @@ export function Layout() {
 				<main className="Layout-main">
 					<Outlet />
 				</main>
+				<footer>
+					<p>
+						© {new Date().getFullYear()} Developed by the Collab Lab TCL-48 Team
+					</p>
+				</footer>
 			</div>
 		</>
 	);
