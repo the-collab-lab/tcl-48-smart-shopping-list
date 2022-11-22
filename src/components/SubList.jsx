@@ -7,8 +7,10 @@ function SubList({ category, listToken, urgency, searchQuery }) {
 	);
 
 	return (
-		<>
-			<h2>{urgencyArray.length !== 0 && urgencyTitle}</h2>
+		<div className="w-full mb-5">
+			<h2 className="text-3xl font-bold">
+				{urgencyArray.length !== 0 && urgencyTitle}
+			</h2>
 			<ul>
 				{urgencyArray.map((item) => {
 					return (
@@ -22,7 +24,7 @@ function SubList({ category, listToken, urgency, searchQuery }) {
 					);
 				})}
 			</ul>
-		</>
+		</div>
 	);
 }
 export default SubList;

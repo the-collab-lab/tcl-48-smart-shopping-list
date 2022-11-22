@@ -12,43 +12,12 @@ export function List({ data, listToken }) {
 		setSearchQuery('');
 	};
 
-	// const overdueList = [];
-	// const soonList = [];
-	// const kindOfSoonList = [];
-	// const notSoonList = [];
-	// const purchasedList = [];
-	// const inactiveList = [];
-	// data.forEach((item) => {
-	// 	if (item.urgency === 'Overdue') {
-	// 		overdueList.push(item);
-	// 	} else if (item.urgency === 'Soon') {
-	// 		soonList.push(item);
-	// 	} else if (item.urgency === 'Kind of soon') {
-	// 		kindOfSoonList.push(item);
-	// 	} else if (item.urgency === 'Not soon') {
-	// 		notSoonList.push(item);
-	// 	} else if (item.urgency === 'Purchased') {
-	// 		purchasedList.push(item);
-	// 	} else {
-	// 		inactiveList.push(item);
-	// 	}
-	// });
-
-	// const sortedItems = [
-	// 	{ Overdue: overdueList },
-	// 	{ Soon: soonList },
-	// 	{ 'Kind of soon': kindOfSoonList },
-	// 	{ 'Not soon': notSoonList },
-	// 	{ Purchased: purchasedList },
-	// 	{ Inactive: inactiveList },
-	// ];
-
 	const sortedItems = comparePurchaseUrgency(data);
 	return (
-		<div>
-			<h2>YOUR INVENTORY</h2>
-			<p>Token name for current list is "{listToken}"</p>
-			<form className="filterForm">
+		<div className="w-full min-h-[90vh] flex flex-col items-center border">
+			<h2 className="text-5xl font-bold mb-3">YOUR INVENTORY</h2>
+			<p className="mb-3">list token: "{listToken}"</p>
+			<form className="filterForm mb-10">
 				<label htmlFor="searchItems">
 					<input
 						type="text"
@@ -58,6 +27,7 @@ export function List({ data, listToken }) {
 						placeholder="Search for an item"
 						autoComplete="off"
 						onChange={(e) => setSearchQuery(e.target.value)}
+						className="border border-[#008882] rounded-lg py-1 px-2"
 					/>
 				</label>
 
@@ -67,18 +37,20 @@ export function List({ data, listToken }) {
 					</button>
 				)}
 			</form>
-			{sortedItems
-				.filter((object) => Object.values(object)[0].length !== 0)
-				.map((item, i) => {
-					return (
-						<SubList
-							key={i}
-							category={item}
-							listToken={listToken}
-							searchQuery={searchQuery}
-						/>
-					);
-				})}
+			<div className="w-full flex flex-col items-center justify-center">
+				{sortedItems
+					.filter((object) => Object.values(object)[0].length !== 0)
+					.map((item, i) => {
+						return (
+							<SubList
+								key={i}
+								category={item}
+								listToken={listToken}
+								searchQuery={searchQuery}
+							/>
+						);
+					})}
+			</div>
 		</div>
 	);
 	// <>

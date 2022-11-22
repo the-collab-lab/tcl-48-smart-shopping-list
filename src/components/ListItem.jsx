@@ -1,6 +1,7 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
 import { updateItem, deleteItem } from '../api/firebase';
+import { BsTrashFill } from 'react-icons/bs';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
@@ -58,25 +59,25 @@ export function ListItem({ listToken, item, urgency }) {
 	return (
 		<li className="ListItem" key={id}>
 			{/* just added styles to help with clarity */}
-			<div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-				<label>
-					<input
-						type="checkbox"
-						id="id"
-						name="id"
-						checked={isPurchased}
-						onChange={handleCheckboxChange}
-					/>
-				</label>
-				<p>{name}</p>
+			<div className="flex items-center justify-between w-full">
+				<div className="flex items-center gap-3">
+					<label>
+						<input
+							type="checkbox"
+							id="id"
+							name="id"
+							checked={isPurchased}
+							onChange={handleCheckboxChange}
+						/>
+					</label>
+					<p>{name}</p>
+				</div>
 				{/* just added styles here to make the urgency smaller than item tag */}
-				<button
+				<BsTrashFill
 					area-label="delete item"
-					type="button"
 					onClick={handleDeleteItem}
-				>
-					Delete
-				</button>
+					className="cursor-pointer"
+				/>
 			</div>
 		</li>
 	);
