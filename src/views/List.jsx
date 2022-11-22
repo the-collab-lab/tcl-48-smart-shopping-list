@@ -14,10 +14,10 @@ export function List({ data, listToken }) {
 	const sortedItems = comparePurchaseUrgency(data);
 
 	return data.length > 0 ? (
-		<div>
-			<h2>YOUR INVENTORY</h2>
-			<p>Token name for current list is "{listToken}"</p>
-			<form className="filterForm">
+		<div className="w-full min-h-[90vh] flex flex-col items-center">
+			<h2 className="text-5xl font-bold mb-3">YOUR INVENTORY</h2>
+			<p className="mb-3">list token: "{listToken}"</p>
+			<form className="filterForm mb-10">
 				<label htmlFor="searchItems">
 					<input
 						type="text"
@@ -27,6 +27,7 @@ export function List({ data, listToken }) {
 						placeholder="Search for an item"
 						autoComplete="off"
 						onChange={(e) => setSearchQuery(e.target.value)}
+						className="border border-[#008882] rounded-lg py-1 px-2 text-black"
 					/>
 				</label>
 
@@ -36,18 +37,20 @@ export function List({ data, listToken }) {
 					</button>
 				)}
 			</form>
-			{sortedItems
-				.filter((object) => Object.values(object)[0].length !== 0)
-				.map((item, i) => {
-					return (
-						<SubList
-							key={i}
-							category={item}
-							listToken={listToken}
-							searchQuery={searchQuery}
-						/>
-					);
-				})}
+			<div className="w-full flex flex-col items-center justify-center">
+				{sortedItems
+					.filter((object) => Object.values(object)[0].length !== 0)
+					.map((item, i) => {
+						return (
+							<SubList
+								key={i}
+								category={item}
+								listToken={listToken}
+								searchQuery={searchQuery}
+							/>
+						);
+					})}
+			</div>
 		</div>
 	) : (
 		<div>

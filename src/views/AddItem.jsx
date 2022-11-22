@@ -58,10 +58,20 @@ export function AddItem({ listToken, data }) {
 	return (
 		<div>
 			{listToken ? (
-				<div>
-					<h2>ADD AN ITEM TO YOUR INVENTORY</h2>
-					<form onSubmit={handleSubmit}>
-						<label htmlFor="itemName">
+				<div className="flex flex-col items-center justify-center gap-10 w-full min-h-[90vh]">
+					<div>
+						<h2 className="font-bold text-5xl text-center">
+							ADD AN ITEM TO YOUR INVENTORY
+						</h2>
+					</div>
+					<form
+						className="w-full flex flex-col items-center"
+						onSubmit={handleSubmit}
+					>
+						<label
+							htmlFor="itemName"
+							className="w-full flex items-center justify-center my-5"
+						>
 							<input
 								type="text"
 								name="itemName"
@@ -70,12 +80,15 @@ export function AddItem({ listToken, data }) {
 								value={itemName}
 								onChange={handleChange}
 								required
+								className="w-3/5 rounded-lg py-1 px-2 border border-[#008882] text-black"
 							/>
 						</label>
-						<div>
+						<div className="w-3/5 p-5">
 							<fieldset>
-								<legend>When will you buy this item again?</legend>
-								<div>
+								<legend className="font-bold text-2xl mb-5">
+									When will you buy this item again?
+								</legend>
+								<div className="mb-5">
 									<input
 										type="radio"
 										value={7 || daysUntilNextPurchase}
@@ -83,17 +96,11 @@ export function AddItem({ listToken, data }) {
 										id="soon"
 										onChange={handleChange}
 										checked={7 === parseInt(daysUntilNextPurchase)}
-										//defaultChecked
+										className="mr-3"
 									/>
-									<label htmlFor="soon">
-										Soon{' '}
-										<span style={{ fontSize: '1rem' }}>
-											{' '}
-											in the next 7 days
-										</span>
-									</label>
+									<label htmlFor="soon">7 days</label>
 								</div>
-								<div>
+								<div className="mb-5">
 									<input
 										type="radio"
 										value={14 || daysUntilNextPurchase}
@@ -101,16 +108,11 @@ export function AddItem({ listToken, data }) {
 										id="kind-of-soon"
 										onChange={handleChange}
 										checked={14 === parseInt(daysUntilNextPurchase)}
+										className="mr-3"
 									/>
-									<label htmlFor="kind-of-soon">
-										Kind of soon{' '}
-										<span style={{ fontSize: '1rem' }}>
-											{' '}
-											in the next 14 days
-										</span>
-									</label>
+									<label htmlFor="kind-of-soon">14 days</label>
 								</div>
-								<div>
+								<div className="mb-5">
 									<input
 										type="radio"
 										value={30 || daysUntilNextPurchase}
@@ -118,20 +120,19 @@ export function AddItem({ listToken, data }) {
 										id="not-soon"
 										onChange={handleChange}
 										checked={30 === parseInt(daysUntilNextPurchase)}
+										className="mr-3"
 									/>
-									<label htmlFor="not-soon">
-										Not soon{' '}
-										<span style={{ fontSize: '1rem' }}>
-											{' '}
-											in the next 30 days
-										</span>
-									</label>
+									<label htmlFor="not-soon">30 days</label>
 								</div>
 							</fieldset>
 							<p>{message}</p>
 						</div>
-						<div>
-							<button area-label="add item" type="submit">
+						<div className="w-full flex items-center justify-center">
+							<button
+								area-label="add item"
+								type="submit"
+								className="bg-[#008882] rounded-lg py-1 px-2 w-3/5 mb-5 text-white font-bold"
+							>
 								Add Item
 							</button>
 						</div>
