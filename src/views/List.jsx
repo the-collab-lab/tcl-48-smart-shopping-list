@@ -14,7 +14,7 @@ export function List({ data, listToken }) {
 	const sortedItems = comparePurchaseUrgency(data);
 
 	return data.length > 0 ? (
-		<div className="w-full min-h-[90vh] flex flex-col items-center border">
+		<div className="w-full min-h-[90vh] flex flex-col items-center">
 			<h2 className="text-5xl font-bold mb-3">YOUR INVENTORY</h2>
 			<p className="mb-3">list token: "{listToken}"</p>
 			<form className="filterForm mb-10">
@@ -27,7 +27,7 @@ export function List({ data, listToken }) {
 						placeholder="Search for an item"
 						autoComplete="off"
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className="border border-[#008882] rounded-lg py-1 px-2"
+						className="border border-[#008882] rounded-lg py-1 px-2 text-black"
 					/>
 				</label>
 

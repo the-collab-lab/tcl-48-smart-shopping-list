@@ -28,7 +28,7 @@ export function Home({ handleClick, setListToken }) {
 		setJointListToken(e.target.value);
 	};
 	return (
-		<div className="Home flex flex-col items-center justify-center gap-5 w-full h-[90vh] text-center border">
+		<div className="Home flex flex-col items-center justify-center gap-5 w-full h-[90vh] text-center">
 			<div>
 				<img
 					className="rounded-md block mb-5 max-w-full mx-auto"

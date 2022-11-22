@@ -58,7 +58,7 @@ export function AddItem({ listToken, data }) {
 	return (
 		<div>
 			{listToken ? (
-				<div className="border flex flex-col items-center justify-center gap-10 w-full min-h-[90vh]">
+				<div className="flex flex-col items-center justify-center gap-10 w-full min-h-[90vh]">
 					<div>
 						<h2 className="font-bold text-5xl text-center">
 							ADD AN ITEM TO YOUR INVENTORY
@@ -80,7 +80,7 @@ export function AddItem({ listToken, data }) {
 								value={itemName}
 								onChange={handleChange}
 								required
-								className="w-3/5 rounded-lg py-1 px-2 border border-[#008882]"
+								className="w-3/5 rounded-lg py-1 px-2 border border-[#008882] text-black"
 							/>
 						</label>
 						<div className="w-3/5 p-5">
