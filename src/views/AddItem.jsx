@@ -139,16 +139,18 @@ export function AddItem({ listToken, data }) {
 					</form>
 				</div>
 			) : (
-				<>
-					<p> Please create or join a list to start adding items.</p>
-					<p>
-						Visit{' '}
-						<Link to="/" style={{ color: '#008882' }}>
-							Home
-						</Link>{' '}
-						for options.
+				<div className="flex flex-col items-start mt-10">
+					<p className="mb-5">
+						{' '}
+						Please create or join a list to start adding items.
 					</p>
-				</>
+					<Link
+						to="/"
+						className="bg-[#008882] rounded-lg py-1 px-2 mb-7 text-white font-medium"
+					>
+						Create or join list
+					</Link>
+				</div>
 			)}
 		</div>
 	);

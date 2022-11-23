@@ -32,7 +32,7 @@ export function Home({ handleClick, setListToken }) {
 			<div>
 				<img
 					className="rounded-md block mb-5 max-w-full mx-auto"
-					src="https://placeimg.com/320/320/tech/grayscale"
+					src="https://placeimg.com/240/240/tech/grayscale"
 					alt="placeholder"
 				/>
 			</div>

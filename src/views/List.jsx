@@ -59,7 +59,7 @@ export function List({ data, listToken }) {
 	) : (
 		<div>
 			{listToken ? (
-				<div className="h-[90vh] flex flex-col items-start justify-center">
+				<div className="flex flex-col items-start justify-center mt-10">
 					<p className="text-3xl mb-5">
 						A shopping list with token name: "{listToken}" has been created and
 						is currently empty.
@@ -72,7 +72,7 @@ export function List({ data, listToken }) {
 					</Link>{' '}
 				</div>
 			) : (
-				<div className="h-[90vh] flex flex-col items-start justify-center">
+				<div className="flex flex-col items-start justify-center mt-10">
 					<p className="mb-5">
 						The shopping list has not been created or joined.
 					</p>
