@@ -58,7 +58,7 @@ export function AddItem({ listToken, data }) {
 	return (
 		<div>
 			{listToken ? (
-				<div className="flex flex-col items-center justify-center gap-10 w-full min-h-[90vh]">
+				<div className="flex flex-col items-center justify-center gap-10 w-full min mt-10">
 					<div>
 						<h2 className="font-bold text-5xl text-center">
 							ADD AN ITEM TO YOUR INVENTORY

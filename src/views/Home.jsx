@@ -28,11 +28,11 @@ export function Home({ handleClick, setListToken }) {
 		setJointListToken(e.target.value);
 	};
 	return (
-		<div className="Home flex flex-col items-center justify-center gap-5 w-full h-[90vh] text-center">
+		<div className="Home flex flex-col items-center gap-5 w-full text-center mt-10">
 			<div>
 				<img
 					className="rounded-md block mb-5 max-w-full mx-auto"
-					src="https://placeimg.com/480/420/tech/grayscale"
+					src="https://placeimg.com/320/320/tech/grayscale"
 					alt="placeholder"
 				/>
 			</div>
@@ -48,7 +48,7 @@ export function Home({ handleClick, setListToken }) {
 			</div>
 			<div className="flex items-center justify-center flex-col text-center w-full">
 				<button
-					className="bg-[#008882] rounded-lg py-1 px-2 mb-7 w-3/5 text-white font-bold"
+					className="bg-[#008882] rounded-lg py-1 px-2 mb-7 w-3/5 text-white font-medium"
 					area-label="create list"
 					type="button"
 					onClick={handleClick}
@@ -70,7 +70,7 @@ export function Home({ handleClick, setListToken }) {
 						/>
 					</label>
 					<button
-						className="bg-[#008882] rounded-lg py-1 px-2 w-3/5 text-white font-bold"
+						className="bg-[#008882] rounded-lg py-1 px-2 w-3/5 text-white font-medium"
 						area-label="Join existing list"
 						type="submit"
 					>

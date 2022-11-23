@@ -14,7 +14,7 @@ export function List({ data, listToken }) {
 	const sortedItems = comparePurchaseUrgency(data);
 
 	return data.length > 0 ? (
-		<div className="w-full min-h-[90vh] flex flex-col items-center">
+		<div className="w-full min flex flex-col items-center mt-10">
 			<h2 className="text-5xl font-bold mb-3">YOUR INVENTORY</h2>
 			<p className="mb-3">list token: "{listToken}"</p>
 			<form className="filterForm mb-10">
@@ -32,7 +32,11 @@ export function List({ data, listToken }) {
 				</label>
 
 				{searchQuery && (
-					<button area-label="clear input" onClick={clearInput}>
+					<button
+						className="bg-[#008882] rounded-lg py-1 px-2 mb-7 text-white font-medium ml-5"
+						area-label="clear input"
+						onClick={clearInput}
+					>
 						Clear
 					</button>
 				)}
@@ -55,27 +59,30 @@ export function List({ data, listToken }) {
 	) : (
 		<div>
 			{listToken ? (
-				<>
-					<p>
+				<div className="h-[90vh] flex flex-col items-start justify-center">
+					<p className="text-3xl mb-5">
 						A shopping list with token name: "{listToken}" has been created and
 						is currently empty.
 					</p>
-					<Link style={{ color: '#008882' }} to="/add-item">
+					<Link
+						className="bg-[#008882] rounded-lg py-1 px-2 mb-7 text-white font-medium"
+						to="/add-item"
+					>
 						Let's add your first item!
 					</Link>{' '}
-				</>
+				</div>
 			) : (
-				<>
-					<p>Nothing to show!</p>
-					<p>The shopping list has not been created or joined.</p>
-					<p>
-						Please visit{' '}
-						<Link to="/" style={{ color: '#008882' }}>
-							Home
-						</Link>{' '}
-						for options.
+				<div className="h-[90vh] flex flex-col items-start justify-center">
+					<p className="mb-5">
+						The shopping list has not been created or joined.
 					</p>
-				</>
+					<Link
+						to="/"
+						className="bg-[#008882] rounded-lg py-1 px-2 mb-7 text-white font-medium"
+					>
+						Create or join list
+					</Link>
+				</div>
 			)}
 		</div>
 	);
