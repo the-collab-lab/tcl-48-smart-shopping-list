@@ -57,7 +57,7 @@ export function ListItem({ listToken, item, urgency }) {
 	};
 
 	return (
-		<li className="ListItem" key={id}>
+		<li className="ListItem mb-2 last:mb-0" key={id}>
 			{/* just added styles to help with clarity */}
 			<div className="flex items-center justify-between w-full">
 				<div className="flex items-center gap-3">
