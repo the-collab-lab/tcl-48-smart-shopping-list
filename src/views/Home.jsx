@@ -2,7 +2,7 @@ import './Home.css';
 import { useState } from 'react';
 import { matchToken } from '../api/firebase';
 import { useNavigate } from 'react-router-dom';
-import welcomeImage from '../images/welcome-image.jpeg';
+import welcomeImage from '../images/wlecome-img.png';
 
 export function Home({ handleClick, setListToken }) {
 	const [jointListToken, setJointListToken] = useState('');
