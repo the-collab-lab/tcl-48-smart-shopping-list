@@ -58,7 +58,6 @@ export function ListItem({ listToken, item, urgency }) {
 
 	return (
 		<li className="ListItem mb-2 last:mb-0" key={id}>
-			{/* just added styles to help with clarity */}
 			<div className="flex items-center justify-between w-full">
 				<div className="flex items-center gap-3">
 					<label>
@@ -68,11 +67,11 @@ export function ListItem({ listToken, item, urgency }) {
 							name="id"
 							checked={isPurchased}
 							onChange={handleCheckboxChange}
+							disabled={isPurchased}
 						/>
 					</label>
 					<p>{name}</p>
 				</div>
-				{/* just added styles here to make the urgency smaller than item tag */}
 				<BsTrashFill
 					area-label="delete item"
 					onClick={handleDeleteItem}
