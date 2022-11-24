@@ -93,11 +93,12 @@ export async function updateItem(listId, id, itemData) {
 		itemData.totalPurchases,
 	);
 
-	console.log(itemData.name, updatePreviousEstimate);
-
 	itemData.dateLastPurchased = new Date();
 	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
-	itemData.totalPurchases = itemData.totalPurchases + 1;
+
+	if (itemData.isChecked) {
+		itemData.totalPurchases = itemData.totalPurchases + 1;
+	}
 
 	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);
@@ -129,11 +130,7 @@ export function comparePurchaseUrgency(items) {
 
 		item.days = differenceTillNextPurchase;
 
-		console.log(differenceTillNextPurchase);
-
-		if (item.isChecked) {
-			item.urgency = 'Purchased';
-		} else if (differenceTillNextPurchase >= 60) {
+		if (differenceTillNextPurchase >= 60) {
 			item.urgency = 'Inactive';
 		} else if (differenceTillNextPurchase < 0) {
 			item.urgency = 'Overdue';
@@ -160,7 +157,9 @@ export function comparePurchaseUrgency(items) {
 	);
 
 	items.forEach((item) => {
-		if (item.urgency === 'Overdue') {
+		if (item.isChecked) {
+			purchasedList.push(item);
+		} else if (item.urgency === 'Overdue') {
 			overdueList.push(item);
 		} else if (item.urgency === 'Soon') {
 			soonList.push(item);
