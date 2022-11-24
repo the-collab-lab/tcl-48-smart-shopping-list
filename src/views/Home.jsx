@@ -2,6 +2,7 @@ import './Home.css';
 import { useState } from 'react';
 import { matchToken } from '../api/firebase';
 import { useNavigate } from 'react-router-dom';
+import welcomeImage from '../images/welcome-image.jpeg';
 
 export function Home({ handleClick, setListToken }) {
 	const [jointListToken, setJointListToken] = useState('');
@@ -28,11 +29,11 @@ export function Home({ handleClick, setListToken }) {
 		setJointListToken(e.target.value);
 	};
 	return (
-		<div className="Home flex flex-col items-center gap-5 w-full text-center mt-10">
+		<div className="Home flex flex-col items-center gap-5 w-full text-center mt-10 px-[5vw]">
 			<div>
 				<img
 					className="rounded-md block mb-5 max-w-full mx-auto"
-					src="https://placeimg.com/240/240/tech/grayscale"
+					src={welcomeImage}
 					alt="placeholder"
 				/>
 			</div>
@@ -48,7 +49,7 @@ export function Home({ handleClick, setListToken }) {
 			</div>
 			<div className="flex items-center justify-center flex-col text-center w-full">
 				<button
-					className="bg-[#008882] rounded-lg py-1 px-2 mb-7 w-3/5 text-white font-medium"
+					className="bg-[#008882] rounded-lg py-1 px-2 mb-7 w-full text-white font-medium"
 					area-label="create list"
 					type="button"
 					onClick={handleClick}
@@ -66,11 +67,11 @@ export function Home({ handleClick, setListToken }) {
 							value={jointListToken}
 							onChange={handleJointListTokenChange}
 							required
-							className="text-black p-2 rounded-lg mb-7 w-3/5 border border-[#008882]"
+							className="text-black p-2 rounded-lg mb-7 w-full border border-[#008882]"
 						/>
 					</label>
 					<button
-						className="bg-[#008882] rounded-lg py-1 px-2 w-3/5 text-white font-medium"
+						className="bg-[#008882] rounded-lg py-1 px-2 w-full text-white font-medium"
 						area-label="Join existing list"
 						type="submit"
 					>

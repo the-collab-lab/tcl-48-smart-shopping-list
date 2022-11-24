@@ -58,7 +58,7 @@ export function AddItem({ listToken, data }) {
 	return (
 		<div>
 			{listToken ? (
-				<div className="flex flex-col items-center justify-center gap-10 w-full min mt-10">
+				<div className="flex flex-col items-center justify-center gap-10 w-full min mt-10 px-[5vw]">
 					<div>
 						<h2 className="font-bold text-5xl text-center">
 							ADD AN ITEM TO YOUR INVENTORY
@@ -80,10 +80,10 @@ export function AddItem({ listToken, data }) {
 								value={itemName}
 								onChange={handleChange}
 								required
-								className="w-3/5 rounded-lg py-1 px-2 border border-[#008882] text-black"
+								className="w-full rounded-lg py-1 px-2 border border-[#008882] text-black"
 							/>
 						</label>
-						<div className="w-3/5 p-5">
+						<div className="w-full">
 							<fieldset>
 								<legend className="font-bold text-2xl mb-5">
 									When will you buy this item again?
@@ -131,7 +131,7 @@ export function AddItem({ listToken, data }) {
 							<button
 								area-label="add item"
 								type="submit"
-								className="bg-[#008882] rounded-lg py-1 px-2 w-3/5 mb-5 text-white font-bold"
+								className="bg-[#008882] rounded-lg py-1 px-2 w-full mb-5 text-white font-bold"
 							>
 								Add Item
 							</button>
