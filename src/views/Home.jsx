@@ -34,17 +34,17 @@ export function Home({ handleClick, setListToken }) {
 				<img
 					className="rounded-md block mb-5 max-w-full mx-auto"
 					src={welcomeImage}
-					alt="placeholder"
+					alt="shopping cart with items and a person"
 				/>
 			</div>
 			<div>
 				<h1 className="text-4xl font-bold mb-5">
 					Welcome to Smart Shopping List!
 				</h1>
+
 				<p className="mb-5">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-					similique assumenda laboriosam atque earum eius ipsa aliquid eum
-					placeat autem eligendi pariatur
+					The app that learns how you shop. Smarter than your average shopping
+					list.
 				</p>
 			</div>
 			<div className="flex items-center justify-center flex-col text-center w-full">
@@ -56,7 +56,9 @@ export function Home({ handleClick, setListToken }) {
 				>
 					create a list
 				</button>
-				<p className="mb-7">or enter a three word token</p>
+				<p className="mb-7">
+					or enter a three word token to display an existing list
+				</p>
 				<form className="w-full" onSubmit={handleTokenSubmit}>
 					<label htmlFor="token">
 						<input
@@ -72,10 +74,10 @@ export function Home({ handleClick, setListToken }) {
 					</label>
 					<button
 						className="bg-[#008882] rounded-lg py-1 px-2 w-full text-white font-medium"
-						area-label="Join existing list"
+						area-label="display existing list"
 						type="submit"
 					>
-						join a list
+						display a list
 					</button>
 					<p className="">{messageError}</p>
 				</form>
