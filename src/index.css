@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-	--color-black: hsla(220, 13%, 18%, 1);
+	--color-black: rgb(19, 19, 19);
 	--color-gray-dark: hsla(220, 13%, 25%, 1);
 	--color-white: hsla(220, 13%, 98%, 1);
 	--color-gray-light: hsla(220, 13%, 94%, 1);
@@ -55,8 +61,7 @@ html {
 body {
 	background-color: var(--color-bg);
 	color: var(--color-text);
-	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-		helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 1.6rem;
 	line-height: 1.4;
 	margin: 0;

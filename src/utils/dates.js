@@ -11,9 +11,22 @@ export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
 
-export function getDaysBetweenDates(previousPurchase, currentDate) {
-	if (!currentDate) {
-		currentDate = Date.now();
+export function getDaysBetweenDates(previousPurchase, futurePurchase) {
+	const currentDate = new Date();
+
+	if (previousPurchase && futurePurchase) {
+		return Math.round(
+			(futurePurchase.toDate() - previousPurchase.toDate()) /
+				ONE_DAY_IN_MILLISECONDS,
+		);
 	}
-	return Math.abs((currentDate - previousPurchase) / ONE_DAY_IN_MILLISECONDS);
+	if (!previousPurchase) {
+		return Math.round(
+			(previousPurchase.toDate() - currentDate) / ONE_DAY_IN_MILLISECONDS,
+		);
+	} else {
+		return Math.round(
+			(currentDate - previousPurchase.toDate()) / ONE_DAY_IN_MILLISECONDS,
+		);
+	}
 }

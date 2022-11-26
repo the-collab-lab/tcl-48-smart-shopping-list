@@ -1,11 +1,12 @@
 import './ListItem.css';
 import { useState, useEffect } from 'react';
 import { updateItem, deleteItem } from '../api/firebase';
+import { BsTrashFill } from 'react-icons/bs';
 
 const milliSecondsInADay = 24 * 60 * 60 * 1000;
 const currentTimeInMilliseconds = Date.now();
 
-export function ListItem({ listToken, item }) {
+export function ListItem({ listToken, item, urgency }) {
 	let {
 		id,
 		name,
@@ -56,20 +57,27 @@ export function ListItem({ listToken, item }) {
 	};
 
 	return (
-		<li className="ListItem" key={id}>
-			<label>
-				<input
-					type="checkbox"
-					id="id"
-					name="id"
-					checked={isPurchased}
-					onChange={handleCheckboxChange}
+		<li className="ListItem mb-2 last:mb-0" key={id}>
+			<div className="flex items-center justify-between w-full">
+				<div className="flex items-center gap-3">
+					<label>
+						<input
+							type="checkbox"
+							id="id"
+							name="id"
+							checked={isPurchased}
+							onChange={handleCheckboxChange}
+							disabled={isPurchased}
+						/>
+					</label>
+					<p>{name}</p>
+				</div>
+				<BsTrashFill
+					area-label="delete item"
+					onClick={handleDeleteItem}
+					className="cursor-pointer"
 				/>
-				{name}
-			</label>
-			<button type="button" onClick={handleDeleteItem}>
-				Delete
-			</button>
+			</div>
 		</li>
 	);
 }

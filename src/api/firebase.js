@@ -9,8 +9,7 @@ import {
 	deleteDoc,
 } from 'firebase/firestore';
 import { db } from './config';
-import { getFutureDate } from '../utils';
-import { getDaysBetweenDates } from '../utils';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 /**
@@ -34,10 +33,6 @@ export function streamListItems(listId, handleSuccess) {
  */
 export function getItemData(snapshot) {
 	return snapshot.docs.map((docRef) => {
-		/**
-		 * We must call a special `.data()` method to get the data
-		 * out of the referenced document
-		 */
 		const data = docRef.data();
 
 		/**
@@ -59,7 +54,7 @@ export function getItemData(snapshot) {
  */
 export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listId);
-	// TODO: Replace this call to console.log with the appropriate
+
 	// Firebase function, so this information is sent to your database!
 	return await addDoc(listCollectionRef, {
 		dateCreated: new Date(),
@@ -81,49 +76,35 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
  * @param {Object} itemData fields in each document of the firebase collection
  */
 export async function updateItem(listId, id, itemData) {
-	let daysSinceLastPurchase;
-	let previousEstimate;
+	const previousEstimate = itemData.daysSinceLastPurchase
+		? getDaysBetweenDates(
+				itemData.dateLastPurchased,
+				itemData.dateNextPurchased,
+		  )
+		: getDaysBetweenDates(itemData.dateCreated, itemData.dateNextPurchased);
 
-	if (itemData.dateLastPurchased) {
-		previousEstimate = getDaysBetweenDates(
-			itemData.dateLastPurchased.toMillis(),
-			itemData.dateNextPurchased.toMillis(),
-		);
-
-		daysSinceLastPurchase = getDaysBetweenDates(
-			itemData.dateLastPurchased.toMillis(),
-		);
-	} else {
-		previousEstimate = getDaysBetweenDates(
-			itemData.dateCreated.toMillis(),
-			itemData.dateNextPurchased.toMillis(),
-		);
-
-		daysSinceLastPurchase = getDaysBetweenDates(
-			itemData.dateCreated.toMillis(),
-		);
-	}
+	const daysSinceLastPurchase = itemData.daysSinceLastPurchase
+		? getDaysBetweenDates(itemData.dateLastPurchased)
+		: getDaysBetweenDates(itemData.dateCreated);
 
 	let updatePreviousEstimate = calculateEstimate(
 		previousEstimate,
 		daysSinceLastPurchase,
 		itemData.totalPurchases,
 	);
+
 	itemData.dateLastPurchased = new Date();
-	itemData.dateNextPurchased = getFutureDate(updatePreviousEstimate);
-	itemData.totalPurchases = itemData.totalPurchases + 1;
+	itemData.dateNextPurchased = getFutureDate(Math.abs(updatePreviousEstimate));
+
+	if (itemData.isChecked) {
+		itemData.totalPurchases = itemData.totalPurchases + 1;
+	}
 
 	const itemCollectionRef = doc(db, listId, id);
 	return await updateDoc(itemCollectionRef, itemData);
 }
 
 export async function deleteItem(listId, itemData) {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to delete an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
-
 	const itemCollectionRef = doc(db, listId, itemData.id);
 	return await deleteDoc(itemCollectionRef);
 }
@@ -132,4 +113,75 @@ export async function matchToken(listId) {
 	const jointListTokenQuery = query(collection(db, listId));
 	const jointListTokenSnapshot = await getDocs(jointListTokenQuery);
 	return jointListTokenSnapshot;
+}
+
+export function comparePurchaseUrgency(items) {
+	const overdueList = [];
+	const soonList = [];
+	const kindOfSoonList = [];
+	const notSoonList = [];
+	const purchasedList = [];
+	const inactiveList = [];
+
+	items.forEach((item) => {
+		const differenceTillNextPurchase = item.dateLastPurchased
+			? getDaysBetweenDates(item.dateLastPurchased, item.dateNextPurchased)
+			: getDaysBetweenDates(item.dateCreated, item.dateNextPurchased);
+
+		item.days = differenceTillNextPurchase;
+
+		if (differenceTillNextPurchase >= 60) {
+			item.urgency = 'Inactive';
+		} else if (differenceTillNextPurchase < 0) {
+			item.urgency = 'Overdue';
+		} else if (differenceTillNextPurchase <= 7) {
+			item.urgency = 'Soon';
+		} else if (
+			differenceTillNextPurchase > 7 &&
+			differenceTillNextPurchase < 30
+		) {
+			item.urgency = 'Kind of soon';
+		} else if (differenceTillNextPurchase >= 30) {
+			item.urgency = 'Not soon';
+		} else {
+			item.urgency = null;
+		}
+	});
+
+	items.sort(
+		(firstItem, secondItem) =>
+			firstItem.isChecked - secondItem.isChecked ||
+			firstItem.isInactive - secondItem.isInactive ||
+			firstItem.days - secondItem.days ||
+			firstItem.name.localeCompare(secondItem.name),
+	);
+
+	items.forEach((item) => {
+		if (item.isChecked) {
+			purchasedList.push(item);
+		} else if (item.urgency === 'Overdue') {
+			overdueList.push(item);
+		} else if (item.urgency === 'Soon') {
+			soonList.push(item);
+		} else if (item.urgency === 'Kind of soon') {
+			kindOfSoonList.push(item);
+		} else if (item.urgency === 'Not soon') {
+			notSoonList.push(item);
+		} else if (item.urgency === 'Purchased') {
+			purchasedList.push(item);
+		} else {
+			inactiveList.push(item);
+		}
+	});
+
+	const sortedItems = [
+		{ Overdue: overdueList },
+		{ Soon: soonList },
+		{ 'Kind of soon': kindOfSoonList },
+		{ 'Not soon': notSoonList },
+		{ Purchased: purchasedList },
+		{ Inactive: inactiveList },
+	];
+
+	return sortedItems;
 }

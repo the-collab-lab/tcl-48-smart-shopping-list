@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { addItem } from '../api/firebase';
+import { Link } from 'react-router-dom';
 
 export function AddItem({ listToken, data }) {
 	const [formData, setFormData] = useState({
@@ -37,6 +38,7 @@ export function AddItem({ listToken, data }) {
 			setFormData((prevState) => ({
 				...prevState,
 				itemName: '',
+				daysUntilNextPurchase: 7,
 			}));
 			setTimeout(() => {
 				setMessage('');
@@ -55,60 +57,102 @@ export function AddItem({ listToken, data }) {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="itemName">Item Name:</label>
-				</div>
-				<input
-					type="text"
-					name="itemName"
-					id="itemName"
-					placeholder="item name"
-					value={itemName}
-					onChange={handleChange}
-					required
-				/>
-				<div>
-					<fieldset>
-						<legend>How soon will you buy this again?</legend>
-						<div>
+			{listToken ? (
+				<div className="flex flex-col items-center justify-center gap-10 w-full min mt-10 px-[5vw]">
+					<div>
+						<h2 className="font-bold text-5xl text-center">
+							ADD AN ITEM TO YOUR INVENTORY
+						</h2>
+					</div>
+					<form
+						className="w-full flex flex-col items-center"
+						onSubmit={handleSubmit}
+					>
+						<label
+							htmlFor="itemName"
+							className="w-full flex items-center justify-center my-5"
+						>
 							<input
-								type="radio"
-								value={7 || daysUntilNextPurchase}
-								name="daysUntilNextPurchase"
-								id="soon"
+								type="text"
+								name="itemName"
+								id="itemName"
+								placeholder="Enter item name"
+								value={itemName}
 								onChange={handleChange}
-								defaultChecked
+								aria-label="item name"
+								required
+								className="w-full rounded-lg py-1 px-2 border border-[#008882] text-black"
 							/>
-							<label htmlFor="soon">Soon</label>
+						</label>
+						<div className="w-full">
+							<fieldset>
+								<legend className="font-bold text-2xl mb-5">
+									When will you buy this item again?
+								</legend>
+								<div className="mb-5">
+									<input
+										type="radio"
+										value={7 || daysUntilNextPurchase}
+										name="daysUntilNextPurchase"
+										id="soon"
+										onChange={handleChange}
+										checked={7 === parseInt(daysUntilNextPurchase)}
+										className="mr-3"
+									/>
+									<label htmlFor="soon">7 days</label>
+								</div>
+								<div className="mb-5">
+									<input
+										type="radio"
+										value={14 || daysUntilNextPurchase}
+										name="daysUntilNextPurchase"
+										id="kind-of-soon"
+										onChange={handleChange}
+										checked={14 === parseInt(daysUntilNextPurchase)}
+										className="mr-3"
+									/>
+									<label htmlFor="kind-of-soon">14 days</label>
+								</div>
+								<div className="mb-5">
+									<input
+										type="radio"
+										value={30 || daysUntilNextPurchase}
+										name="daysUntilNextPurchase"
+										id="not-soon"
+										onChange={handleChange}
+										checked={30 === parseInt(daysUntilNextPurchase)}
+										className="mr-3"
+									/>
+									<label htmlFor="not-soon">30 days</label>
+								</div>
+							</fieldset>
+							<p>{message}</p>
 						</div>
-						<div>
-							<input
-								type="radio"
-								value={14 || daysUntilNextPurchase}
-								name="daysUntilNextPurchase"
-								id="kind-of-soon"
-								onChange={handleChange}
-							/>
-							<label htmlFor="kind-of-soon">Kind of soon</label>
+						<div className="w-full flex items-center justify-center">
+							<button
+								area-label="add item"
+								type="submit"
+								className="bg-[#008882] rounded-lg py-1 px-2 w-full mb-5 text-white font-bold"
+							>
+								Add Item
+							</button>
 						</div>
-						<div>
-							<input
-								type="radio"
-								value={30 || daysUntilNextPurchase}
-								name="daysUntilNextPurchase"
-								id="not-soon"
-								onChange={handleChange}
-							/>
-							<label htmlFor="not-soon">Not soon</label>
-						</div>
-					</fieldset>
-					<p>{message}</p>
+					</form>
 				</div>
-				<div>
-					<button type="submit">Add Item</button>
+			) : (
+				<div className="flex flex-col items-start mt-10">
+					<p className="mb-5">
+						{' '}
+						Please create or join a list to start adding items.
+					</p>
+					<Link
+						to="/"
+						className="bg-[#008882] rounded-lg py-1 px-2 mb-7 text-white font-medium"
+					>
+						Create or join list
+					</Link>
 				</div>
-			</form>
+			)}
 		</div>
 	);
 }
