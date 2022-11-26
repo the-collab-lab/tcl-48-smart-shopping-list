@@ -2,7 +2,7 @@ import './Home.css';
 import { useState } from 'react';
 import { matchToken } from '../api/firebase';
 import { useNavigate } from 'react-router-dom';
-import welcomeImage from '../images/wlecome-img.png';
+import welcomeImage from '../images/welcome-img.png';
 
 export function Home({ handleClick, setListToken }) {
 	const [jointListToken, setJointListToken] = useState('');
@@ -69,6 +69,7 @@ export function Home({ handleClick, setListToken }) {
 							value={jointListToken}
 							onChange={handleJointListTokenChange}
 							required
+							aria-label="token"
 							className="text-black p-2 rounded-lg mb-7 w-full border border-[#008882]"
 						/>
 					</label>

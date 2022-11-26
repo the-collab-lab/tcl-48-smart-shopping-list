@@ -79,6 +79,7 @@ export function AddItem({ listToken, data }) {
 								placeholder="Enter item name"
 								value={itemName}
 								onChange={handleChange}
+								aria-label="item name"
 								required
 								className="w-full rounded-lg py-1 px-2 border border-[#008882] text-black"
 							/>

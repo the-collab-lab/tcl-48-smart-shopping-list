@@ -17,7 +17,6 @@ export function Layout() {
 		<>
 			<div className="Layout">
 				<header className="Layout-header">
-					{/* <h1>Smart shopping list</h1> */}
 					<nav className="Nav">
 						<NavLink to="/" className="Nav-link">
 							<img alt="home navigation icon" src={homeIcon} />
