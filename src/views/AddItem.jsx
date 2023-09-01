@@ -25,6 +25,7 @@ export function AddItem({ listToken, data }) {
 			if (itemName.trim().length === 0) {
 				setMessage('Cannot add empty item');
 			} else if (!isDuplicate) {
+				console.log('item');
 				await addItem(listToken, { itemName, daysUntilNextPurchase });
 				setMessage(`${itemName} added to the list`);
 			} else {
