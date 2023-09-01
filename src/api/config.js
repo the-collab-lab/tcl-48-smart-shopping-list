@@ -1,19 +1,21 @@
-import { initializeApp } from 'firebase/app';
+import { firebase, initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAnalytics } from 'firebase/analytics';
+import 'firebase/auth';
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: 'AIzaSyA9SjuxkOCOWieFtSDuTxlsKUvRfH0X8FY',
-	authDomain: 'smartlist-4bfa4.firebaseapp.com',
-	projectId: 'smartlist-4bfa4',
-	storageBucket: 'smartlist-4bfa4.appspot.com',
-	messagingSenderId: '37106960895',
-	appId: '1:37106960895:web:fc36be1644a4593f397fca',
-	measurementId: 'G-2QHSQHD1RK',
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDERID,
+	appId: process.env.REACT_APP_FIREBASE__ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-// ​​const auth = getAuth(app)
 export const db = getFirestore(app);
+export const auth = app.auth();
+export default app;
