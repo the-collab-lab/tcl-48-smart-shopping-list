@@ -1,16 +1,19 @@
-import { initializeApp } from 'firebase/app';
+import { firebase, initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: 'AIzaSyCle0YCfdl7oQgSA902p_AT3tGbr_bivAg',
-	authDomain: 'tcl-48-smart-shopping-list.firebaseapp.com',
-	projectId: 'tcl-48-smart-shopping-list',
-	storageBucket: 'tcl-48-smart-shopping-list.appspot.com',
-	messagingSenderId: '755383222168',
-	appId: '1:755383222168:web:15dea45331b9dc9e2935ed',
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDERID,
+	appId: process.env.REACT_APP_FIREBASE__ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = app.auth();
+export default app;
