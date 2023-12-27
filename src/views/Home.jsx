@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { matchToken } from '../api/firebase';
 import { useNavigate } from 'react-router-dom';
 import welcomeImage from '../images/welcome-img.png';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 export function Home({ handleClick, setListToken }) {
 	const [jointListToken, setJointListToken] = useState('');
@@ -52,7 +53,7 @@ export function Home({ handleClick, setListToken }) {
 					className="bg-[#008882] rounded-lg py-1 px-2 mb-7 w-full text-white font-medium"
 					area-label="create list"
 					type="button"
-					onClick={handleClick}
+					onClick={() => console.log('Creating new lists is disabled')}
 				>
 					create a list
 				</button>
@@ -83,6 +84,7 @@ export function Home({ handleClick, setListToken }) {
 					<p className="">{messageError}</p>
 				</form>
 			</div>
+			<ArchivalNoticeModal />
 		</div>
 	);
 }
